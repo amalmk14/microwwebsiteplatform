@@ -1,0 +1,448 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+	<script  src="https://code.jquery.com/jquery-3.1.1.min.js"  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="  crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+
+
+	<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <style>
+
+.mbtn:active {
+	transform: scale(0.95);
+}
+
+.mbtn:focus {
+	outline: none;
+}
+
+       .body {
+    background: #333649; /* Change the background color */
+    transition: all .5s;
+    padding: 1px;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+		.veen{
+			width: 70%;
+			margin: 100px auto;
+			background: rgba(255,255,255,.5);
+			min-height: 400px;
+			display:table;
+			position: relative;
+			box-shadow: 0 0 4px rgba(0,0,0,.14), 0 4px 8px rgba(0,0,0,.28);
+		}
+		.veen > div {
+			display: table-cell;
+			vertical-align: middle;
+			text-align: center;
+			color: #fff;
+		}
+		.veen button {
+    background: transparent;
+    display: inline-block;
+    padding: 10px 30px;
+    border: 3px solid #fff;
+    border-radius: 50px;
+    background-clip: padding-box;
+    position: relative;
+    color: #FFF;
+    transition: all .25s;
+}
+		.veen button.dark {
+    border-color: #ef6603; /* Change the border color */
+    background: #ef6603; /* Change the background color */
+}
+
+		.veen .move button.dark {
+    border-color: #ef6603; /* Change the border color */
+    background: #ef6603; /* Change the background color */
+}
+		.veen .splits p{
+			font-size: 18px;
+		}
+		.veen button:active{
+			box-shadow: none;
+		}
+		.veen button:focus{
+			outline: none;
+		}
+		.veen > .wrapper {
+			position: absolute;
+			width: 40%;
+			height: 120%;
+			top: -10%;
+			left: 5%;
+			background: #fff;
+			box-shadow: 0 0 4px rgba(0,0,0,.14), 0 4px 8px rgba(0,0,0,.28);
+			transition: all .5s;
+			color: #303030;
+			overflow: hidden;
+		}
+		.veen .wrapper > form{
+			padding: 15px 30px 30px;
+			width: 100%;
+			transition: all .5s;
+			background: #fff;
+			width: 100%;
+		}
+.veen .wrapper > form:focus{
+  outline: none;
+}
+		.veen .wrapper #login{
+			padding-top: 20%;
+      visibility: visible;
+		}
+		.veen .wrapper #register{
+			transform: translateY(-80%) translateX(100%);
+      visibility: hidden;
+		}
+		.veen .wrapper.move #register{
+			transform: translateY(-80%) translateX(0%);
+      visibility: visible;
+		}
+		.veen .wrapper.move #login{
+			transform: translateX(-100%);
+      visibility: hidden;
+		}
+		.veen .wrapper > form > div {
+			position: relative;
+			margin-bottom: 15px;
+		}
+		.veen .wrapper label{
+			position: absolute;
+			top: -7px;
+			font-size: 12px;
+			white-space: nowrap;
+			background: #fff;
+			text-align: left;
+			left: 15px;
+			padding: 0 5px;
+			color: #999;
+			pointer-events: none;
+		}
+		.veen .wrapper h3{
+			margin-bottom: 25px;
+		}
+		.veen .wrapper input{
+			height: 40px;
+			padding: 5px 15px;
+			width: 100%;
+			border: solid 1px #999;
+		}
+.veen .wrapper input{
+			height: 40px;
+			padding: 5px 15px;
+			width: 100%;
+			border: solid 1px #999;
+		}
+		.veen .wrapper input:focus{
+			outline: none;
+			border-color: #ff4931;
+		}
+		.veen > .wrapper.move{
+			left: 45%;
+		}
+		.veen > .wrapper.move input:focus{
+			border-color: #e0b722;
+		}
+		@media (max-width: 767px){
+			.veen{
+				padding: 5px;
+				margin: 0;
+				width: 100%;
+				display: block;
+			}
+			.veen > .wrapper{
+				position: relative;
+				height: auto;
+				top: 0;
+				left: 0;
+				width: 100%;
+			}
+			.veen > div{
+				display: inline-block;
+			}
+			.splits{
+				width: 50%;
+				background: #fff;
+				float: left;
+			}
+			.splits button{
+				width: 100%;
+				border-radius: 0;
+				background: #505050;
+				border: 0;
+				opacity: .7;
+			}
+			.splits button.active{
+				opacity: 1;
+			}
+			.splits button.active{
+				opacity: 1;
+				background: #ff4931;
+			}
+			.splits.rgstr-btn button.active{
+				background: #e0b722;
+			}
+			.splits p{
+				display: none;
+			}
+			.veen > .wrapper.move{
+				left: 0%;
+			}
+		}
+
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill{
+  box-shadow: inset 0 0 0 50px #fff
+}
+@media screen and (max-width: 500px) {
+    .veen {
+        width: 100%;
+    }
+
+    .veen > div {
+        display: block;
+    }
+
+    .veen .wrapper {
+        width: 100%;
+        left: 0;
+    }
+
+    .veen .login-btn button,
+    .veen .rgstr-btn button {
+        width: 100%;
+    }
+}
+
+    </style>
+<style>
+  .alert {
+    position: fixed; /* or absolute depending on your layout */
+    top: 3%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 15px;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    width: 400px;
+    height:50px;
+    text-align: center;
+  }
+
+  .alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+  }
+   .alert {
+        display: flex;
+        align-items: center;
+    }
+
+    .alert .message {
+        margin-left: 5px;
+    }
+</style>
+
+</head>
+<body>
+{% for msg in messages %}
+<div class="alert alert-danger" role="alert">
+	<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"  fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+  </svg>
+	<div class="message">
+        <strong>{{ msg }}</strong>
+    </div>
+
+
+<!--<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="decoration: none;">&times</button>-->
+</div>
+{% endfor %}
+
+
+<div class="body">
+		<div class="veen">
+			<div class="login-btn splits">
+				<p>Already an user?</p>
+				<button class="active">Login</button>
+			</div>
+			<div class="rgstr-btn splits">
+				<p>Don't have an account?</p>
+				<button>Register</button>
+			</div>
+			<div class="wrapper" style="margin-bottom:100px;">
+<!--				<form id="login" tabindex="500" method="post" action="login">-->
+					<form id="login" tabindex="500" method="post" action="{% url 'login:signin' %}" onsubmit="return validateLoginForm()">
+						{% csrf_token %}
+					<h3><strong>Login</strong></h3>
+					<div class="mail">
+						<input type="text" name="username" required>
+						<label>Name</label>
+					</div>
+					<div class="passwd">
+						<input type="password" name="password" required>
+						<label>Password</label>
+					</div>
+					<div class="submit">
+						<button class="dark" type="submit">Login</button>
+					</div>
+					<!-- Button trigger modal -->
+					<a href="" style="color:#999ba4;text-decoration:none;" data-toggle="modal" data-target="#myModal" >Forgetpassword?</a><br>
+					<!-- <a href="" style="color:#999ba4;" data-bs-toggle="modal" data-bs-target="#myModal">Forget password?</a> -->
+					<a href="{% url 'mainapp:home' %}" style="color:#999ba4;">Back to main page.</a>
+				</form>
+				
+
+<!--				<form id="register" method="post" action="register" tabindex="502">-->
+					<form id="register" method="post" action="{% url 'login:signup' %}" tabindex="502">
+					{% csrf_token %}
+					<h3><strong>Register</strong></h3>
+					<div class="uid">
+						<input type="text" name="username" required>
+						<label>Name</label>
+					</div>
+					<div class="mail">
+						<input type="email" name="email" required>
+						<label>Mail</label>
+					</div>
+					<div class="phone">
+						<input type="number" name="phone" required>
+						<label>Phone No</label>
+					</div>
+					<div class="passwd">
+						<input type="password" name="password1" required>
+						<label>Password</label>
+					</div>
+					<div class="passwd">
+						<input type="password" name="password2" required>
+						<label>Password</label>
+					</div>
+					<div class="submit">
+						<button class="dark" type="submit">Register</button>
+					</div>
+					<a class="small text-muted" type="button" href="{% url 'mainapp:home' %}" style="text-decoration:none;"></a><span style="font-size:16px;color:#999ba4">Back to main page!</span></a>
+
+					<!-- <a href="{% url 'mainapp:home' %}" style="color:#999ba4">Back to main page!</a> -->
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+		  <h4 class="modal-title" id="myModalLabel">Email Id</h4>
+		</div>
+		<div class="modal-body">
+			<form action="{% url 'login:forgot_password' %}" method="POST" style="background-color: #FFFFFF;display: flex;align-items: center;justify-content: center;flex-direction: column;padding: 0 50px;height: 100%;text-align: center;">
+				{% csrf_token %}
+				<input  type="email" style="width:400px;background-color: #eee;border: none;padding: 12px 15px;margin: 8px 0;width: 100%" placeholder="ex:-jhon@gmail.com" name="email" required><br>
+				<button  class="btn-danger" type="submit" class="dark" style="border-radius: 20px;border-color: #ef6603;background: #ef6603;color: #FFFFFF;font-size: 12px;font-weight: bold;padding: 12px 45px;letter-spacing: 1px;text-transform: uppercase;transition: transform 80ms ease-in;">Submit</button>
+			</form>
+		</div>
+	  </div>
+	</div>
+  </div>
+<style type="text/css">
+		.site-link{
+      padding: 5px 15px;
+			position: fixed;
+			z-index: 99999;
+			background: #abcdef;
+			box-shadow: 0 0 4px rgba(0,0,0,.14), 0 4px 8px rgba(0,0,0,.28);
+			right: 30px;
+			bottom: 30px;
+			border-radius: 10px;
+		}
+		.site-link img{
+			width: 30px;
+			height: 30px;
+		}
+	</style>
+<script>
+    $(document).ready(function () {
+    $(".veen .rgstr-btn button").click(function () {
+        $('.veen .wrapper').addClass('move');
+        $('.body').css('background', '#333649'); // Change the background color
+        $(".veen .login-btn button").removeClass('active');
+        $(this).addClass('active');
+    });
+
+    $(".veen .login-btn button").click(function () {
+        $('.veen .wrapper').removeClass('move');
+        $('.body').css('background', '#333649'); // Change the background color
+        $(".veen .rgstr-btn button").removeClass('active');
+        $(this).addClass('active');
+    });
+});
+</script>
+<script>
+    // Function to validate email format
+    function validateEmail(email) {
+        var re = /\S+@\S+\.\S+/;
+        return re.test(email);
+    }
+
+    // Function to validate username format
+    function validateUsername(username) {
+        var re = /^[a-zA-Z0-9_-]{3,16}$/;
+        return re.test(username);
+    }
+
+    // Function to validate registration form
+    function validateRegistrationForm() {
+        var email = document.forms["register"]["email"].value;
+        var username = document.forms["register"]["username"].value;
+        var password = document.forms["register"]["password"].value;
+
+        if (!validateEmail(email)) {
+            alert("Please enter a valid email address");
+            return false;
+        }
+
+        if (!validateUsername(username)) {
+            alert("Please enter a valid username (3-16 characters, alphanumeric, underscores, and hyphens allowed)");
+            return false;
+        }
+
+        if (password == "") {
+            alert("Password must be filled out");
+            return false;
+        }
+        return true;
+    }
+</script>
+<script>
+    $(document).ready(function () {
+        // Automatically close the alerts after 7 seconds
+        $(".alert").delay(3000).fadeOut("slow");
+    });
+</script>
+
+
+
+</body>
+</html>

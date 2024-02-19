@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Reset</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+
+                <!-- Step 1: OTP Validation Form -->
+                <div id="step1">
+                    <h2 class="mb-4">Step 1: OTP Validation</h2>
+                    <form>
+                        <div class="mb-3">
+                            <label for="otp" class="form-label">Enter OTP:</label>
+                            <input type="text" class="form-control" id="otp" name="otp" required>
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="validateOTP()">Submit OTP</button>
+                    </form>
+                </div>
+
+                <!-- Step 2: Change Password Form -->
+                <div id="step2" style="display: none;">
+                    <h2 class="mb-4">Step 2: Change Password</h2>
+                    <form>
+                        <div class="mb-3">
+                            <label for="newPassword" class="form-label">New Password:</label>
+                            <input type="password" class="form-control" id="newPassword" name="newPassword" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label">Confirm Password:</label>
+                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
+                                required>
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="changePassword()">Change Password</button>
+                    </form>
+                </div>
+
+                <!-- Step 3: Resend OTP Option -->
+                <div id="step3" style="display: none;">
+                    <h2 class="mb-4">Step 3: Resend OTP</h2>
+                    <p>Didn't receive OTP? Click the button below to resend.</p>
+                    <button type="button" class="btn btn-secondary" onclick="resendOTP()">Resend OTP</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function validateOTP() {
+            // Add your OTP validation logic here
+            // If OTP is valid, show Step 2, otherwise show Step 3
+            const isValidOTP = true; // Replace with your validation logic
+            if (isValidOTP) {
+                document.getElementById('step1').style.display = 'none';
+                document.getElementById('step2').style.display = 'block';
+            } else {
+                document.getElementById('step1').style.display = 'none';
+                document.getElementById('step3').style.display = 'block';
+            }
+        }
+
+        function changePassword() {
+            // Add your change password logic here
+            // After changing the password, you might want to redirect the user to the login page
+            // For example: window.location.href = '/login';
+        }
+
+        function resendOTP() {
+            // Add your OTP resend logic here
+            // After resending OTP, show Step 1 again
+            document.getElementById('step3').style.display = 'none';
+            document.getElementById('step1').style.display = 'block';
+        }
+    </script>
+
+</body>
+
+</html>

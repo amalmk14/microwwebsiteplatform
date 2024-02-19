@@ -1,0 +1,80 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Purchase Details</title>-->
+<!--    &lt;!&ndash; Add any necessary styles or scripts here &ndash;&gt;-->
+
+<!--</head>-->
+<!--<body>-->
+<!--    <h1>Purchase Details</h1>-->
+<!--    <div ></div>-->
+<!--&lt;!&ndash;    <img src="{{template_card.temp_img.url}}">&ndash;&gt;-->
+<!--    <p>Template ID: {{ template_card.id }}</p>-->
+<!--    <p>Template Name: {{ template_card.name }}</p>-->
+<!--    &lt;!&ndash; Add other template details as needed &ndash;&gt;-->
+
+<!--    &lt;!&ndash; Add any additional content or links here &ndash;&gt;-->
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Page</title>
+  <style>
+    /* Add your CSS styles here */
+    .card {
+      border: 1px solid #ccc;
+      padding: 20px;
+      margin: 20px;
+      text-align: center;
+    }
+
+    #discountInput {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <!-- Your image goes here -->
+    <img src="{{template_card.temp_img.url}}" alt="Product Image" width="200">
+
+    <h2>Product Name</h2>
+    <p>Product description goes here.</p>
+
+    <label for="discountInput">Discount Coupon:</label>
+    <input type="text" id="discountInput" placeholder="Enter coupon code">
+
+    <button onclick="applyDiscount()">Apply Discount</button>
+
+    <p id="originalPrice">Original Price: {{template_card.price}}</p>
+    <p id="discountedPrice">Discounted Price: $100</p>
+  </div>
+
+  <script>
+    function applyDiscount() {
+      // Get the original price from your system or input
+      var originalPrice = {{template_card.price}}; // Replace with your actual original price
+
+      // Get the discount code from the input box
+      var discountCode = document.getElementById('discountInput').value;
+
+      // Call your backend to validate the discount code and get the discount percentage
+      // For simplicity, let's assume a fixed discount percentage for this example
+      var discountPercentage = 10; // Replace with your actual discount logic
+
+      // Calculate the discounted price
+      var discountedPrice = originalPrice - (originalPrice * (discountPercentage / 100));
+
+      // Update the DOM to show the original and discounted prices
+      document.getElementById('originalPrice').innerText = 'Original Price: $' + originalPrice;
+      document.getElementById('discountedPrice').innerText = 'Discounted Price: $' + discountedPrice.toFixed(2);
+    }
+  </script>
+</body>
+</html>

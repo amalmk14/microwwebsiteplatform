@@ -1,0 +1,13 @@
+Order Confirmation
+
+Dear {{ orders.username }},
+
+Thank you for your purchase! Your order details are as follows:
+
+- Order ID: {{ orders.order_id }}
+- Template Name: {{ orders.template_name }}
+- Amount Paid: {{ orders.final_amount }}
+<!-- Add other order details here -->
+
+For any questions or concerns, please contact our support team.
+Thank you for choosing our service!

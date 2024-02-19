@@ -1,0 +1,25 @@
+<!-- expiry_notification_email.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Template Expiry Notification</title>
+</head>
+<body>
+    <h1>Template Expiry Notification</h1>
+    <p>Dear {{ order.username }},</p>
+
+    {% if order.expiry_date <= timezone.now() %}
+        <p>Your template has expired. Please renew your template subscription.</p>
+    {% elif order.expiry_date <= (timezone.now() + timedelta(days=1)) %}
+        <p>Your template subscription will expire tomorrow. Please renew it as soon as possible.</p>
+    {% elif order.expiry_date <= (timezone.now() + timedelta(days=7)) %}
+        <p>Your template subscription will expire in the next 7 days. Please consider renewing it.</p>
+    {% endif %}
+
+    <p>For any questions or concerns, please contact our support team.</p>
+    <p>Thank you for choosing our service!</p>
+</body>
+</html>

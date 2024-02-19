@@ -1,0 +1,36 @@
+{% autoescape off %}
+
+<div style="font-family: Arial, sans-serif;">
+
+    <h2>Payment Failure Notification</h2>
+
+    <p>Dear,</p>
+
+    <p>We inform you that the user {{ uname }} recent payment has failed. Below are the details of the transaction:</p>
+
+    <ul>
+        <li><strong>user id:</strong> {{ uid }}</li>
+        <li><strong>Payment ID:</strong> {{ payment_id }}</li>
+        <li><strong>Order ID:</strong> {{ orders_id }}</li>
+        <li><strong>Date and Time:</strong> {{ date }}</li>
+        <li><strong>reason:</strong> {{ reason }}</li>
+        <li><strong>code:</strong> {{ code }}</li>
+        <li><strong>source:</strong> {{ source }}</li>
+        <li><strong>step:</strong> {{ step }}</li>
+        <li><strong>uemail:</strong> {{ uemail }}</li>
+
+
+
+    </ul>
+
+    <p>Please review the information provided and take the necessary steps to resolve the payment issue. </p>
+{% comment %} If you have any questions or concerns, feel free to contact our support team at support@example.com. {% endcomment %}
+    <p>Thank you for your understanding.</p>
+
+    <p>Best regards,<br>
+    Your Company Name</p>
+
+    </div>
+
+
+{% endautoescape%}

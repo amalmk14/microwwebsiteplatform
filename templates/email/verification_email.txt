@@ -1,0 +1,14 @@
+email/verification_email.txt:
+
+Hi {{ user.name }},
+
+Thank you for signing up! Please click the following link to verify your email address:
+
+{{ verification_url }}
+
+This link is valid for 24 hours.
+
+If you did not sign up for our website, please ignore this email.
+
+Best regards,
+Your Website Team
