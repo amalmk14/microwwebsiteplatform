@@ -67,7 +67,7 @@ body.modal-open::before {
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-secondary navbar-dark">
                 <a href="{% url 'customadmin:adminhome' %}" class="navbar-brand mx-4 mb-3">
-                    <h3 class="text-primary"><i class="fa fa-user-edit me-2"></i>Admin Home</h3>
+                    <h3 class=""><i class="fa fa-user-edit me-2"></i>Admin Home</h3>
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
@@ -111,10 +111,10 @@ body.modal-open::before {
         <div class="content">
             <!-- Navbar Start -->
             <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
-                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
-                    <h2 class="text-primary mb-0"><i class="fa fa-user-edit"></i></h2>
+                <a href="" class="navbar-brand d-flex d-lg-none me-4">
+                    <h2 class=" mb-0"><i class="fa fa-user-edit"></i></h2>
                 </a>
-                <a href="#" class="sidebar-toggler flex-shrink-0">
+                <a href="#" class="sidebar-toggler flex-shrink-0" style="color: white;">
                     <i class="fa fa-bars"></i>
                 </a>
 <!--                <form class="d-none d-md-flex ms-4">-->
@@ -185,7 +185,7 @@ body.modal-open::before {
                         </div>
                     </div> -->
                     <div class="nav-item" style="margin-left:10px;">
-                        <a href="{% url 'customadmin:adminlogout' %}">Log Out</a>
+                        <a href="{% url 'customadmin:adminlogout' %}" style="color: white;">Log Out</a>
                     </div>
 <!--                    <div class="nav-item dropdown">-->
 <!--                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">-->
@@ -208,7 +208,7 @@ body.modal-open::before {
                 <div class="row g-4">
                     <div class="col-sm-6 col-xl-3">
                         <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="fa fa-chart-line fa-3x text-primary"></i>
+                            <i class="fa fa-chart-line fa-3x" style="color: white;"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Today Sale</p>
                                 <h6 class="mb-0">$1234</h6>
@@ -217,7 +217,7 @@ body.modal-open::before {
                     </div>
                     <div class="col-sm-6 col-xl-3">
                         <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="fa fa-chart-bar fa-3x text-primary"></i>
+                            <i class="fa fa-chart-bar fa-3x" style="color: white;"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Total Sale</p>
                                 <h6 class="mb-0">$1234</h6>
@@ -226,7 +226,7 @@ body.modal-open::before {
                     </div>
                     <div class="col-sm-6 col-xl-3">
                         <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="fa fa-chart-area fa-3x text-primary"></i>
+                            <i class="fa fa-chart-area fa-3x" style="color: white;"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Today Revenue</p>
                                 <h6 class="mb-0">$1234</h6>
@@ -235,7 +235,7 @@ body.modal-open::before {
                     </div>
                     <div class="col-sm-6 col-xl-3">
                         <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="fa fa-chart-pie fa-3x text-primary"></i>
+                            <i class="fa fa-chart-pie fa-3x" style="color: white;"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Total Revenue</p>
                                 <h6 class="mb-0">$1234</h6>
@@ -254,7 +254,7 @@ body.modal-open::before {
                         <div class="h-100 bg-secondary rounded p-4">
                             <div class="d-flex align-items-center justify-content-between mb-2">
                                 <h6 class="mb-0">Messages</h6>
-                                <a href="">Show All</a>
+                                <a href="" style="color: white;">Show All</a>
                             </div>
                             {% for c in contact %}
                             <div class="d-flex align-items-center border-bottom py-3">
@@ -262,7 +262,7 @@ body.modal-open::before {
                                 <div class="w-100 ms-3">
                                     <div class="d-flex w-100 justify-content-between">
                                         <h6 class="mb-0">
-                                            <a href="#" class="contact-details" data-bs-toggle="modal" data-bs-target="#contactModal{{ c.id }}">{{ c.name }}</a>
+                                            <a href="#" class="contact-details" data-bs-toggle="modal" data-bs-target="#contactModal{{ c.id }}" style="color: white;">{{ c.name }}</a>
                                         </h6>
                                         <small>{{ c.date }}</small>
                                     </div>
@@ -343,7 +343,7 @@ body.modal-open::before {
                         <div class="h-100 bg-secondary rounded p-4">
                             <div class="d-flex align-items-center justify-content-between mb-4">
                                 <h6 class="mb-0">Calender</h6>
-                                <a href="">Show All</a>
+                                <a href="" style="color: white;">Show All</a>
                             </div>
                             <div id="calender"></div>
                         </div>
@@ -353,7 +353,7 @@ body.modal-open::before {
                         <div class="h-100 bg-secondary rounded p-4">
                             <div class="d-flex align-items-center justify-content-between mb-2">
                                 <h6 class="mb-0">Admin</h6>
-                                <a href="#create_admin">create Admin</a>
+                                <a href="#create_admin" style="color: white;">create Admin</a>
                             </div>
                             {% for i in user %}
                             <div class="d-flex align-items-center border-bottom py-3">
@@ -418,12 +418,12 @@ body.modal-open::before {
                 <div class="bg-secondary rounded-top p-4">
                     <div class="row">
                         <div class="col-12 col-sm-6 text-center text-sm-start">
-                            &copy; <a href="#">Your Site Name</a>, All Right Reserved. 
+                            &copy; <a href="#" style="color: white;">Your Site Name</a>, All Right Reserved. 
                         </div>
                         <div class="col-12 col-sm-6 text-center text-sm-end">
                             <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                            Designed By <a href="https://htmlcodex.com">HTML Codex</a>
-                            <br>Distributed By: <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
+                            Designed By <a href="" style="color: white;">HTML Codex</a>
+                            <br>Distributed By: <a href="" style="color: white;">ThemeWagon</a>
                         </div>
                     </div>
                 </div>

@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-m&jz==!lr^y8pty00fzrnb2x!re9&^)-)+6v(yv-g5@bqt!*b+
 DEBUG = True
 
 # ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*','192.168.29.223','127.0.0.1','127.0.0.1:8000']
 CORS_ALLOWERD_ORIGINS = [
     "https://d5e2-2402-3a80-1293-e148-3039-a957-7d55-adfe.ngrok-free.app"
 ]
@@ -49,6 +49,23 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
+    #googleaccountsignup
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+]
+
+#googleaccountsignup
+AUTHENTICATION_BACKENDS = [
+
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by email
+    'allauth.account.auth_backends.AuthenticationBackend',
+
 ]
 
 MIDDLEWARE = [
@@ -59,6 +76,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #googleaccountsignup
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = 'tempbuys.urls'
@@ -158,3 +177,30 @@ KEY="rzp_test_NcFQDSHN7XYIPQ"
 SECRET="5HJdpdQXAv7DHYov2PdC2MTh"
 
 
+#googleaccountsignup
+# Provider specific settings
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        # For each OAuth based provider, either add a ``SocialApp``
+        # (``socialaccount`` app) containing the required client
+        # credentials, or list them here:
+        'APP': {
+            'client_id': '154555866121-ecjjnuc89fhdsutiqfhs8tai6elcjqt9.apps.googleusercontent.com',
+            'secret': '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',
+            'key': ''
+        },
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+        
+    }
+}
+
+SITE_ID=1
+
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+LOGIN_REDIRECT_URL = '/'
