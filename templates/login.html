@@ -40,7 +40,7 @@
   </style>
 <style>
 	:root {
-    --primary-color: #353b48;
+    --primary-color: #4a546a;
     --secondary-color: #353b48;
     --black: #000000;
     --white: #ffffff;
@@ -533,7 +533,8 @@ body {
 				<form action="{% url 'login:forgot_password' %}" method="POST" style="background-color: #FFFFFF;display: flex;align-items: center;justify-content: center;flex-direction: column;padding: 0 50px;height: 100%;text-align: center;">
 					{% csrf_token %}
 					<input  type="email" style="width:400px;background-color: #eee;border: none;padding: 12px 15px;margin: 8px 0;width: 100%" placeholder="ex:-jhon@gmail.com" name="email" required><br>
-					<button  class="btn-danger" type="submit" class="dark" style="border-radius: 20px;border-color: #ef6603;background: #ef6603;color: #FFFFFF;font-size: 12px;font-weight: bold;padding: 12px 45px;letter-spacing: 1px;text-transform: uppercase;transition: transform 80ms ease-in;">Submit</button>
+					<button  class="btn-danger" type="submit" class="dark" style="border-radius: 20px;border-color: #353b48;background: #4a546a;color: #FFFFFF;font-size: 12px;font-weight: bold;padding: 12px 45px;letter-spacing: 1px;text-transform: uppercase;transition: transform 80ms ease-in;">Submit</button>
+					<!-- <button  class="btn-danger" type="submit" class="dark" style="border-radius: 20px;border-color: #ef6603;background: #ef6603;color: #FFFFFF;font-size: 12px;font-weight: bold;padding: 12px 45px;letter-spacing: 1px;text-transform: uppercase;transition: transform 80ms ease-in;">Submit</button> -->
 				</form>	
 			</div>
 		  </div>

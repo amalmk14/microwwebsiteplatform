@@ -16,6 +16,7 @@ from .models import *
 from random import shuffle
 # Create your views here.
 
+
 def home(request):
     name = request.session.get('username')
     normal_type = TemplatesType.objects.get(name='normal')
