@@ -32,6 +32,7 @@ def logout(request):
     return render(request,"home.html")
 
 
+
 def signin(request):
     if request.method == 'POST':
         username = request.POST['username']

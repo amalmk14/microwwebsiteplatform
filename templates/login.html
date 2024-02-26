@@ -4,449 +4,590 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-	<script  src="https://code.jquery.com/jquery-3.1.1.min.js"  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="  crossorigin="anonymous"></script>
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
+  <style>
+	.alert {
+	  position: fixed; /* or absolute depending on your layout */
+	  top: 3%;
+	  left: 50%;
+	  transform: translateX(-50%);
+	  padding: 15px;
+	  border: 1px solid transparent;
+	  border-radius: .25rem;
+	  color: #721c24;
+	  background-color: #f8d7da;
+	  border-color: #f5c6cb;
+	  width: 400px;
+	  height:50px;
+	  text-align: center;
+	}
+  
+	.alert-danger {
+	  color: #721c24;
+	  background-color: #f8d7da;
+	  border-color: #f5c6cb;
+	}
+	 .alert {
+		  display: flex;
+		  align-items: center;
+	  }
+  
+	  .alert .message {
+		  margin-left: 5px;
+	  }
+  </style>
+<style>
+	:root {
+    --primary-color: #353b48;
+    --secondary-color: #353b48;
+    --black: #000000;
+    --white: #ffffff;
+    --gray: #efefef;
+    --gray-2: #757575;
 
-
-	<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-
-<!-- Optional theme -->
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <style>
-
-.mbtn:active {
-	transform: scale(0.95);
+    --facebook-color: #4267B2;
+    --google-color: #DB4437;
+    --twitter-color: #1DA1F2;
+    --insta-color: #E1306C;
 }
 
-.mbtn:focus {
-	outline: none;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
+
+* {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-       .body {
-    background: #333649; /* Change the background color */
-    transition: all .5s;
-    padding: 1px;
+html,
+body {
+    height: 100vh;
+    overflow: hidden;
+}
+
+.con {
+    position: relative;
     min-height: 100vh;
+    overflow: hidden;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    height: 100vh;
+}
+
+.col {
+    width: 50%;
+}
+
+.align-items-center {
     display: flex;
     align-items: center;
     justify-content: center;
-}
-		.veen{
-			width: 70%;
-			margin: 100px auto;
-			background: rgba(255,255,255,.5);
-			min-height: 400px;
-			display:table;
-			position: relative;
-			box-shadow: 0 0 4px rgba(0,0,0,.14), 0 4px 8px rgba(0,0,0,.28);
-		}
-		.veen > div {
-			display: table-cell;
-			vertical-align: middle;
-			text-align: center;
-			color: #fff;
-		}
-		.veen button {
-    background: transparent;
-    display: inline-block;
-    padding: 10px 30px;
-    border: 3px solid #fff;
-    border-radius: 50px;
-    background-clip: padding-box;
-    position: relative;
-    color: #FFF;
-    transition: all .25s;
-}
-		.veen button.dark {
-    border-color: #ef6603; /* Change the border color */
-    background: #ef6603; /* Change the background color */
-}
-
-		.veen .move button.dark {
-    border-color: #ef6603; /* Change the border color */
-    background: #ef6603; /* Change the background color */
-}
-		.veen .splits p{
-			font-size: 18px;
-		}
-		.veen button:active{
-			box-shadow: none;
-		}
-		.veen button:focus{
-			outline: none;
-		}
-		.veen > .wrapper {
-			position: absolute;
-			width: 40%;
-			height: 120%;
-			top: -10%;
-			left: 5%;
-			background: #fff;
-			box-shadow: 0 0 4px rgba(0,0,0,.14), 0 4px 8px rgba(0,0,0,.28);
-			transition: all .5s;
-			color: #303030;
-			overflow: hidden;
-		}
-		.veen .wrapper > form{
-			padding: 15px 30px 30px;
-			width: 100%;
-			transition: all .5s;
-			background: #fff;
-			width: 100%;
-		}
-.veen .wrapper > form:focus{
-  outline: none;
-}
-		.veen .wrapper #login{
-			padding-top: 20%;
-      visibility: visible;
-		}
-		.veen .wrapper #register{
-			transform: translateY(-80%) translateX(100%);
-      visibility: hidden;
-		}
-		.veen .wrapper.move #register{
-			transform: translateY(-80%) translateX(0%);
-      visibility: visible;
-		}
-		.veen .wrapper.move #login{
-			transform: translateX(-100%);
-      visibility: hidden;
-		}
-		.veen .wrapper > form > div {
-			position: relative;
-			margin-bottom: 15px;
-		}
-		.veen .wrapper label{
-			position: absolute;
-			top: -7px;
-			font-size: 12px;
-			white-space: nowrap;
-			background: #fff;
-			text-align: left;
-			left: 15px;
-			padding: 0 5px;
-			color: #999;
-			pointer-events: none;
-		}
-		.veen .wrapper h3{
-			margin-bottom: 25px;
-		}
-		.veen .wrapper input{
-			height: 40px;
-			padding: 5px 15px;
-			width: 100%;
-			border: solid 1px #999;
-		}
-.veen .wrapper input{
-			height: 40px;
-			padding: 5px 15px;
-			width: 100%;
-			border: solid 1px #999;
-		}
-		.veen .wrapper input:focus{
-			outline: none;
-			border-color: #ff4931;
-		}
-		.veen > .wrapper.move{
-			left: 45%;
-		}
-		.veen > .wrapper.move input:focus{
-			border-color: #e0b722;
-		}
-		@media (max-width: 767px){
-			.veen{
-				padding: 5px;
-				margin: 0;
-				width: 100%;
-				display: block;
-			}
-			.veen > .wrapper{
-				position: relative;
-				height: auto;
-				top: 0;
-				left: 0;
-				width: 100%;
-			}
-			.veen > div{
-				display: inline-block;
-			}
-			.splits{
-				width: 50%;
-				background: #fff;
-				float: left;
-			}
-			.splits button{
-				width: 100%;
-				border-radius: 0;
-				background: #505050;
-				border: 0;
-				opacity: .7;
-			}
-			.splits button.active{
-				opacity: 1;
-			}
-			.splits button.active{
-				opacity: 1;
-				background: #ff4931;
-			}
-			.splits.rgstr-btn button.active{
-				background: #e0b722;
-			}
-			.splits p{
-				display: none;
-			}
-			.veen > .wrapper.move{
-				left: 0%;
-			}
-		}
-
-input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill{
-  box-shadow: inset 0 0 0 50px #fff
-}
-@media screen and (max-width: 500px) {
-    .veen {
-        width: 100%;
-    }
-
-    .veen > div {
-        display: block;
-    }
-
-    .veen .wrapper {
-        width: 100%;
-        left: 0;
-    }
-
-    .veen .login-btn button,
-    .veen .rgstr-btn button {
-        width: 100%;
-    }
-}
-
-    </style>
-<style>
-  .alert {
-    position: fixed; /* or absolute depending on your layout */
-    top: 3%;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 15px;
-    border: 1px solid transparent;
-    border-radius: .25rem;
-    color: #721c24;
-    background-color: #f8d7da;
-    border-color: #f5c6cb;
-    width: 400px;
-    height:50px;
     text-align: center;
-  }
+}
 
-  .alert-danger {
-    color: #721c24;
-    background-color: #f8d7da;
-    border-color: #f5c6cb;
-  }
-   .alert {
-        display: flex;
-        align-items: center;
+.form-wrapper {
+    width: 100%;
+    max-width: 28rem;
+}
+
+.form {
+    padding: 1rem;
+    background-color: var(--white);
+    border-radius: 1.5rem;
+    width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    transform: scale(0);
+    transition: .5s ease-in-out;
+    transition-delay: 1s;
+}
+
+.input-group {
+    position: relative;
+    width: 100%;
+    margin: 1rem 0;
+}
+
+.input-group i {
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+    font-size: 1.4rem;
+    color: var(--gray-2);
+}
+
+.input-group input {
+    width: 100%;
+    padding: 1rem 3rem;
+    font-size: 1rem;
+    background-color: var(--gray);
+    border-radius: .5rem;
+    border: 0.125rem solid var(--white);
+    outline: none;
+}
+
+.input-group input:focus {
+    border: 0.125rem solid var(--primary-color);
+}
+
+.form button {
+    cursor: pointer;
+    width: 100%;
+    padding: .6rem 0;
+    border-radius: .5rem;
+    border: none;
+    background-color: var(--primary-color);
+    color: var(--white);
+    font-size: 1.2rem;
+    outline: none;
+}
+
+.form p {
+    margin: 1rem 0;
+    font-size: .7rem;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.social-list {
+    margin: 2rem 0;
+    padding: 1rem;
+    border-radius: 1.5rem;
+    width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    transform: scale(0);
+    transition: .5s ease-in-out;
+    transition-delay: 1.2s;
+}
+
+.social-list>div {
+    color: var(--white);
+    margin: 0 .5rem;
+    padding: .7rem;
+    cursor: pointer;
+    border-radius: .5rem;
+    cursor: pointer;
+    transform: scale(0);
+    transition: .5s ease-in-out;
+}
+
+.social-list>div:nth-child(1) {
+    transition-delay: 1.4s;
+}
+
+.social-list>div:nth-child(2) {
+    transition-delay: 1.6s;
+}
+
+.social-list>div:nth-child(3) {
+    transition-delay: 1.8s;
+}
+
+.social-list>div:nth-child(4) {
+    transition-delay: 2s;
+}
+
+.social-list>div>i {
+    font-size: 1.5rem;
+    transition: .4s ease-in-out;
+}
+
+.social-list>div:hover i {
+    transform: scale(1.5);
+}
+
+.facebook-bg {
+    background-color: var(--facebook-color);
+}
+
+.google-bg {
+    background-color: var(--google-color);
+}
+
+.twitter-bg {
+    background-color: var(--twitter-color);
+}
+
+.insta-bg {
+    background-color: var(--insta-color);
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.con.sign-in .form.sign-in,
+.con.sign-in .social-list.sign-in,
+.con.sign-in .social-list.sign-in>div,
+.con.sign-up .form.sign-up,
+.con.sign-up .social-list.sign-up,
+.con.sign-up .social-list.sign-up>div {
+    transform: scale(1);
+}
+
+.content-row {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 6;
+    width: 100%;
+}
+
+.text {
+    margin: 4rem;
+    color: var(--white);
+}
+
+.text h2 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin: 2rem 0;
+    transition: 1s ease-in-out;
+}
+
+.text p {
+    font-weight: 600;
+    transition: 1s ease-in-out;
+    transition-delay: .2s;
+}
+
+.img img {
+    width: 30vw;
+    transition: 1s ease-in-out;
+    transition-delay: .4s;
+}
+
+.text.sign-in h2,
+.text.sign-in p,
+.img.sign-in img {
+    transform: translateX(-250%);
+}
+
+.text.sign-up h2,
+.text.sign-up p,
+.img.sign-up img {
+    transform: translateX(250%);
+}
+
+.con.sign-in .text.sign-in h2,
+.con.sign-in .text.sign-in p,
+.con.sign-in .img.sign-in img,
+.con.sign-up .text.sign-up h2,
+.con.sign-up .text.sign-up p,
+.con.sign-up .img.sign-up img {
+    transform: translateX(0);
+}
+
+/* BACKGROUND */
+
+.con::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 300vw;
+    transform: translate(35%, 0);
+    background-image: linear-gradient(-45deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    transition: 1s ease-in-out;
+    z-index: 6;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-bottom-right-radius: max(50vw, 50vh);
+    border-top-left-radius: max(50vw, 50vh);
+}
+
+.con.sign-in::before {
+    transform: translate(0, 0);
+    right: 50%;
+}
+
+.con.sign-up::before {
+    transform: translate(100%, 0);
+    right: 50%;
+}
+
+/* RESPONSIVE */
+
+@media only screen and (max-width: 425px) {
+
+    .con::before,
+    .con.sign-in::before,
+    .con.sign-up::before {
+        height: 100vh;
+        border-bottom-right-radius: 0;
+        border-top-left-radius: 0;
+        z-index: 0;
+        transform: none;
+        right: 0;
     }
 
-    .alert .message {
-        margin-left: 5px;
+    /* .con.sign-in .col.sign-up {
+        transform: translateY(100%);
+    } */
+
+    .con.sign-in .col.sign-in,
+    .con.sign-up .col.sign-up {
+        transform: translateY(0);
     }
+
+    .content-row {
+        align-items: flex-start !important;
+    }
+
+    .content-row .col {
+        transform: translateY(0);
+        background-color: unset;
+    }
+
+    .col {
+        width: 100%;
+        position: absolute;
+        padding: 2rem;
+        background-color: var(--white);
+        border-top-left-radius: 2rem;
+        border-top-right-radius: 2rem;
+        transform: translateY(100%);
+        transition: 1s ease-in-out;
+    }
+
+    .row {
+        align-items: flex-end;
+        justify-content: flex-end;
+    }
+
+    .form,
+    .social-list {
+        box-shadow: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .text {
+        margin: 0;
+    }
+
+    .text p {
+        display: none;
+    }
+
+    .text h2 {
+        margin: .5rem;
+        font-size: 2rem;
+    }
+}
 </style>
-
 </head>
 <body>
-{% for msg in messages %}
-<div class="alert alert-danger" role="alert">
-	<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"  fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
-    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-  </svg>
-	<div class="message">
-        <strong>{{ msg }}</strong>
-    </div>
-
-
-<!--<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="decoration: none;">&times</button>-->
-</div>
-{% endfor %}
-
-
-<div class="body">
-		<div class="veen">
-			<div class="login-btn splits">
-				<p>Already an user?</p>
-				<button class="active">Login</button>
+	<div id="con" class="con">
+		<!-- FORM SECTION -->
+		<div class="row">
+			<!-- SIGN UP -->
+			<div class="col align-items-center flex-col sign-up">
+				<div class="form-wrapper align-items-center">
+					<form id="register" method="post" action="{% url 'login:signup' %}" tabindex="502">
+					{% csrf_token %}
+					<div class="form sign-up">
+						<div class="input-group">
+							<i class='bx bxs-user'></i>
+							<input type="text" placeholder="Username" name="username">
+						</div>
+						<div class="input-group">
+							<i class='bx bx-mail-send'></i>
+							<input type="email" placeholder="Email" name="email">
+						</div>
+						<div class="input-group">
+							<i class='bx bx-mail-send'></i>
+							<input type="number" placeholder="Phone NO" name="phone">
+						</div>
+						<div class="input-group">
+							<i class='bx bxs-lock-alt'></i>
+							<input type="password" placeholder="Password" name="password1">
+						</div>
+						<div class="input-group">
+							<i class='bx bxs-lock-alt'></i>
+							<input type="password" placeholder="Confirm password" name="password2">
+						</div>
+						<button type="submit">
+							Sign up
+						</button>
+						<p>
+							<a href="{% url 'mainapp:home' %}" style="text-decoration: none;color: #000000;">
+								<b>
+									Back to home!
+								</b>
+							</a>
+						</p>
+						<p>
+							<span>
+								Already have an account?
+							</span>
+							<b onclick="toggle()" class="pointer">
+								Sign in here
+							</b>
+						</p>
+					</div>
+					</form>
+				</div>
+			
 			</div>
-			<div class="rgstr-btn splits">
-				<p>Don't have an account?</p>
-				<button>Register</button>
-			</div>
-			<div class="wrapper" style="margin-bottom:100px;">
-<!--				<form id="login" tabindex="500" method="post" action="login">-->
+			<!-- END SIGN UP -->
+			<!-- SIGN IN -->
+			<div class="col align-items-center flex-col sign-in">
+				<div class="form-wrapper align-items-center">
 					<form id="login" tabindex="500" method="post" action="{% url 'login:signin' %}" onsubmit="return validateLoginForm()">
 						{% csrf_token %}
-					<h3><strong>Login</strong></h3>
-					<div class="mail">
-						<input type="text" name="username" required>
-						<label>Name</label>
+					<div class="form sign-in">
+						<div class="input-group">
+							<i class='bx bxs-user'></i>
+							<input type="text" placeholder="Username" name="username">
+						</div>
+						<div class="input-group">
+							<i class='bx bxs-lock-alt'></i>
+							<input type="password" placeholder="Password" name="password">
+						</div>
+						<button type="submit">
+							Sign in
+						</button>
+						<p>
+							<a href="" style="text-decoration: none;color: #000000;" data-bs-toggle="modal" data-bs-target="#exampleModal">
+								<b>
+									Forgot password?
+								</b>
+							</a>
+						</p>
+						<p>
+							<a href="{% url 'mainapp:home' %}" style="text-decoration: none;color: #000000;">
+								<b>
+									Back to home!
+								</b>
+							</a>
+						</p>
+						<p>
+							<span>
+								Don't have an account?
+							</span>
+							<b onclick="toggle()" class="pointer">
+								Sign up here
+							</b>
+						</p>
+						
 					</div>
-					<div class="passwd">
-						<input type="password" name="password" required>
-						<label>Password</label>
-					</div>
-					<div class="submit">
-						<button class="dark" type="submit">Login</button>
-					</div>
-					<!-- Button trigger modal -->
-					<a href="" style="color:#999ba4;text-decoration:none;" data-toggle="modal" data-target="#myModal" >Forgetpassword?</a><br>
-					<!-- <a href="" style="color:#999ba4;" data-bs-toggle="modal" data-bs-target="#myModal">Forget password?</a> -->
-					<a href="{% url 'mainapp:home' %}" style="color:#999ba4;">Back to main page.</a>
-					
-				</form>
-				
-
-<!--				<form id="register" method="post" action="register" tabindex="502">-->
-					<form id="register" method="post" action="{% url 'login:signup' %}" tabindex="502">
-						{% load socialaccount %}
-                	<h6>Google Login</h1>
-                	<a href="{% provider_login_url 'google' %}">Sign up with Google</a>
-					{% csrf_token %}
-					<h3><strong>Register</strong></h3>
-					<div class="uid">
-						<input type="text" name="username" required>
-						<label>Name</label>
-					</div>
-					<div class="mail">
-						<input type="email" name="email" required>
-						<label>Mail</label>
-					</div>
-					<div class="phone">
-						<input type="number" name="phone" required>
-						<label>Phone No</label>
-					</div>
-					<div class="passwd">
-						<input type="password" name="password1" required>
-						<label>Password</label>
-					</div>
-					<div class="passwd">
-						<input type="password" name="password2" required>
-						<label>Password</label>
-					</div>
-					<div class="submit">
-						<button class="dark" type="submit">Register</button>
-					</div>
-					<a class="small text-muted" type="button" href="{% url 'mainapp:home' %}" style="text-decoration:none;"></a><span style="font-size:16px;color:#999ba4">Back to main page!</span></a>
-
-					<!-- <a href="{% url 'mainapp:home' %}" style="color:#999ba4">Back to main page!</a> -->
-				</form>
+					</form>
+				</div>
+				<div class="form-wrapper">
+		
+				</div>
 			</div>
+			<!-- END SIGN IN -->
 		</div>
+		<!-- END FORM SECTION -->
+		<!-- CONTENT SECTION -->
+		<div class="row content-row">
+			<!-- SIGN IN CONTENT -->
+			<div class="col align-items-center flex-col">
+				<div class="text sign-in">
+					<h2>
+						Welcome
+					</h2>
+	
+				</div>
+				<div class="img sign-in">
+		
+				</div>
+			</div>
+			<!-- END SIGN IN CONTENT -->
+			<!-- SIGN UP CONTENT -->
+			<div class="col align-items-center flex-col">
+				<div class="img sign-up">
+				
+				</div>
+				<div class="text sign-up">
+					<h2>
+						Join with us
+					</h2>
+	
+				</div>
+			</div>
+			<!-- END SIGN UP CONTENT -->
+		</div>
+		<!-- END CONTENT SECTION -->
 	</div>
 
-
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-	  <div class="modal-content">
-		<div class="modal-header">
-		  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-		  <h4 class="modal-title" id="myModalLabel">Email Id</h4>
-		</div>
-		<div class="modal-body">
-			<form action="{% url 'login:forgot_password' %}" method="POST" style="background-color: #FFFFFF;display: flex;align-items: center;justify-content: center;flex-direction: column;padding: 0 50px;height: 100%;text-align: center;">
-				{% csrf_token %}
-				<input  type="email" style="width:400px;background-color: #eee;border: none;padding: 12px 15px;margin: 8px 0;width: 100%" placeholder="ex:-jhon@gmail.com" name="email" required><br>
-				<button  class="btn-danger" type="submit" class="dark" style="border-radius: 20px;border-color: #ef6603;background: #ef6603;color: #FFFFFF;font-size: 12px;font-weight: bold;padding: 12px 45px;letter-spacing: 1px;text-transform: uppercase;transition: transform 80ms ease-in;">Submit</button>
-			</form>
+	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <h5 class="modal-title" id="exampleModalLabel">Email ID</h5>
+			  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form action="{% url 'login:forgot_password' %}" method="POST" style="background-color: #FFFFFF;display: flex;align-items: center;justify-content: center;flex-direction: column;padding: 0 50px;height: 100%;text-align: center;">
+					{% csrf_token %}
+					<input  type="email" style="width:400px;background-color: #eee;border: none;padding: 12px 15px;margin: 8px 0;width: 100%" placeholder="ex:-jhon@gmail.com" name="email" required><br>
+					<button  class="btn-danger" type="submit" class="dark" style="border-radius: 20px;border-color: #ef6603;background: #ef6603;color: #FFFFFF;font-size: 12px;font-weight: bold;padding: 12px 45px;letter-spacing: 1px;text-transform: uppercase;transition: transform 80ms ease-in;">Submit</button>
+				</form>	
+			</div>
+		  </div>
 		</div>
 	  </div>
+<div>
+
+<style>
+  .alert-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000; /* Adjust the z-index as needed */
+  }
+</style>
+<div class="alert-container">
+	{% for msg in messages %}
+	<div class="alert" role="alert" style="background-color: #353b48; color: white;" id="autoCloseAlert">
+		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+		  <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+		</svg>
+		<div class="message">
+		  <strong>{{ msg }}</strong>
+		</div>
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="decoration: none; background-color: white; margin-left: 15px;">&times</button>
 	</div>
-  </div>
-<style type="text/css">
-		.site-link{
-      padding: 5px 15px;
-			position: fixed;
-			z-index: 99999;
-			background: #abcdef;
-			box-shadow: 0 0 4px rgba(0,0,0,.14), 0 4px 8px rgba(0,0,0,.28);
-			right: 30px;
-			bottom: 30px;
-			border-radius: 10px;
-		}
-		.site-link img{
-			width: 30px;
-			height: 30px;
-		}
-	</style>
+	{% endfor %}
+</div>
+  
+
+  <script>
+	// Add a script to close the alert after 6 seconds
+	setTimeout(function() {
+	  var autoCloseAlert = document.getElementById('autoCloseAlert');
+	  if (autoCloseAlert) {
+		autoCloseAlert.remove();
+	  }
+	}, 6000); // 6000 milliseconds = 6 seconds
+  </script>
+
 <script>
-    $(document).ready(function () {
-    $(".veen .rgstr-btn button").click(function () {
-        $('.veen .wrapper').addClass('move');
-        $('.body').css('background', '#333649'); // Change the background color
-        $(".veen .login-btn button").removeClass('active');
-        $(this).addClass('active');
-    });
+	let con = document.getElementById('con')
 
-    $(".veen .login-btn button").click(function () {
-        $('.veen .wrapper').removeClass('move');
-        $('.body').css('background', '#333649'); // Change the background color
-        $(".veen .rgstr-btn button").removeClass('active');
-        $(this).addClass('active');
-    });
-});
-</script>
-<script>
-    // Function to validate email format
-    function validateEmail(email) {
-        var re = /\S+@\S+\.\S+/;
-        return re.test(email);
-    }
+toggle = () => {
+	con.classList.toggle('sign-in')
+	con.classList.toggle('sign-up')
+}
 
-    // Function to validate username format
-    function validateUsername(username) {
-        var re = /^[a-zA-Z0-9_-]{3,16}$/;
-        return re.test(username);
-    }
-
-    // Function to validate registration form
-    function validateRegistrationForm() {
-        var email = document.forms["register"]["email"].value;
-        var username = document.forms["register"]["username"].value;
-        var password = document.forms["register"]["password"].value;
-
-        if (!validateEmail(email)) {
-            alert("Please enter a valid email address");
-            return false;
-        }
-
-        if (!validateUsername(username)) {
-            alert("Please enter a valid username (3-16 characters, alphanumeric, underscores, and hyphens allowed)");
-            return false;
-        }
-
-        if (password == "") {
-            alert("Password must be filled out");
-            return false;
-        }
-        return true;
-    }
-</script>
-<script>
-    $(document).ready(function () {
-        // Automatically close the alerts after 7 seconds
-        $(".alert").delay(3000).fadeOut("slow");
-    });
+setTimeout(() => {
+	con.classList.add('sign-in')
+}, 200)
 </script>
 
-
-
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 </body>
 </html>
