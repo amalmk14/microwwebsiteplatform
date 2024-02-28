@@ -21,4 +21,5 @@ urlpatterns = [
     path('profile_resend_otp/',views.profile_resend_otp,name="profile_resend_otp"),
     path('delete_account/',views.delete_account, name='delete_account'),
     path('delete_verify_email/<str:token>/', views.delete_verify_email, name='delete_verify_email'),
+    
 ]

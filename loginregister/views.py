@@ -125,19 +125,19 @@ def signup(request):
 from django.http import Http404
 from .models import EmailVerificationToken
 
-def verify_email(request, token):
-    try:
-        verification_token = EmailVerificationToken.objects.get(token=token)
-    except EmailVerificationToken.DoesNotExist:
-        raise Http404("Token not found")
+# def verify_email(request, token):
+#     try:
+#         verification_token = EmailVerificationToken.objects.get(token=token)
+#     except EmailVerificationToken.DoesNotExist:
+#         raise Http404("Token not found")
 
-    # Mark the user as verified
-    verification_token.user.is_verified = True
-    verification_token.user.save()
+#     # Mark the user as verified
+#     verification_token.user.is_verified = True
+#     verification_token.user.save()
 
-    # Delete the verification token
-    verification_token.delete()
-    return render(request, "verification_success.html")
+#     # Delete the verification token
+#     verification_token.delete()
+#     return render(request, "verification_success.html")
 
 
 #signin
@@ -180,6 +180,7 @@ from django.conf import settings
 from django.urls import reverse
 from django.utils import timezone
 from .models import Profile, Storedotps
+
 
 def forgot_password(request):
     if request.method == 'POST':
@@ -558,3 +559,49 @@ def delete_verify_email(request, token):
     return render(request, "email/delete_verification_success.html")
 
 
+
+
+
+import secrets
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+from django.conf import settings
+from mainapp.models import Coupen_code
+
+def generate_random_coupon_code():
+    # Generate a random string for the coupon code
+    return secrets.token_hex(5).upper()
+
+def send_coupon_email(user_email, coupon_code):
+    # Render the email template
+    subject = 'Your Exclusive Coupon Code'
+    message = render_to_string('email/coupon_email.txt', {'coupon_code': coupon_code})
+    plain_message = strip_tags(message)
+
+    # Send the email
+    send_mail(subject, plain_message, settings.EMAIL_HOST_USER, [user_email], html_message=message)
+
+def verify_email(request, token):
+    try:
+        verification_token = EmailVerificationToken.objects.get(token=token)
+    except EmailVerificationToken.DoesNotExist:
+        raise Http404("Token not found")
+
+    # Mark the user as verified
+    verification_token.user.is_verified = True
+    verification_token.user.save()
+
+    # Generate a random coupon code
+    coupon_code = generate_random_coupon_code()
+
+    # Save the coupon code to the database
+    Coupen_code.objects.create(code=coupon_code, coupen_percentage=10, is_active=True)
+
+    # Send the coupon code to the user's email
+    send_coupon_email(verification_token.user.email, coupon_code)
+
+    # Delete the verification token
+    verification_token.delete()
+    
+    return render(request, "verification_success.html")

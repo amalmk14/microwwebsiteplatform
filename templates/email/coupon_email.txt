@@ -1,0 +1,10 @@
+Hello,
+
+Thank you for verifying your email. As a token of appreciation, here is your exclusive coupon code:
+
+Coupon Code: {{ coupon_code }}
+
+Use this code during checkout to enjoy a {{ coupen_percentage }}% discount.
+
+Best regards,
+Your Company Name

@@ -285,7 +285,7 @@ def checkout(request, id):
             orders.save()
 
     client = razorpay.Client(auth=(settings.KEY, settings.SECRET))
-    payment = client.order.create({'amount': template.price * 100, 'currency': 'INR', 'payment_capture': 1})
+    payment = client.order.create({'amount': final_amount * 100, 'currency': 'INR', 'payment_capture': 1})
 
     try:
         orders_obj = Orders.objects.get(email=email)
@@ -318,6 +318,7 @@ from django.template.loader import render_to_string
 
 # Modify your views.py file
 from datetime import timedelta
+from django.shortcuts import get_object_or_404
 
 def success(request):
     order_id = request.GET.get('Order_id')
@@ -340,13 +341,20 @@ def success(request):
         renewal = Renewal(order=orders, payment_success=payment_success, expiry_date=expiry_date, reminder_date=reminder_date)
         renewal.save()
 
+        # Check if a coupon code was used
+        coupen_code_used = request.session.get('code', None)
+
+        if coupen_code_used:
+            # Delete the used coupon code
+            coupen_code = get_object_or_404(Coupen_code, code=coupen_code_used)
+            coupen_code.delete()
+
     # Update the order's amount_paid status
     orders.amount_paid = True
     orders.save()
     # Send email to user with order details
     send_order_confirmation_email(orders)
     return render(request, 'pay/paymentsuccess.html',{'order': orders,'payment_success': payment_success})
-
 
 
 
