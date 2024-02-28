@@ -1,0 +1,14 @@
+email/verification_email.txt:
+
+Hi {{ user.name }},
+
+account deactivation link
+
+{{ verification_url }}
+
+This link is valid for 24 hours.
+
+If you did not deactivate your account, please ignore this email.
+
+Best regards,
+Your Website Team

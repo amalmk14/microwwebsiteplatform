@@ -330,7 +330,7 @@
                         <div class="bg-secondary rounded h-100 p-4">
                             <div class="row">
                                 <div class="col-md-3">
-                                    <h6 class="mb-4">Orders</h6>
+                                    <h6 class="mb-4">Pending Orders</h6>
                                 </div>
                             </div>
                             <div class="table-responsive">
@@ -376,7 +376,53 @@
                         <div class="bg-secondary rounded h-100 p-4">
                             <div class="row">
                                 <div class="col-md-3">
-                                    <h6 class="mb-4">Pending Orders</h6>
+                                    <h6 class="mb-4">Success Orders</h6>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">order_date</th>
+                                            <th scope="col">order_id</th>
+                                            <th scope="col">email</th>
+                                            <th scope="col">Host Name</th>
+                                            <th scope="col">Template Name</th>
+<!--                                            <th scope="col">template_category</th>-->
+                                            <th scope="col">coupen_code</th>
+                                            <th scope="col">final_amount</th>
+                                            <th scope="col">amount_paid</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for s_order in s_orders %}
+                                        <tr>
+<!--                                            <th scope="row">*</th>-->
+                                            <td>{{s_order.order_date}}</td>
+                                            <td>{{s_order.order_id}}</td>
+                                            <td>{{s_order.email}}</td>
+                                            <td>{{s_order.host_name}}</td>
+                                            <td>{{s_order.template_name}}</td>
+                                            <td>{{s_order.coupen_code}}</td>
+                                            <td>{{s_order.final_amount}}</td>
+                                            <td>{{s_order.amount_paid}}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+                    <div class="col-12">
+                        <div class="bg-secondary rounded h-100 p-4">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h6 class="mb-4">Cancel Orders</h6>
                                 </div>
                             </div>
                             <div class="table-responsive">

@@ -19,4 +19,7 @@ urlpatterns = [
     path('verify_email/<str:token>/', views.verify_email, name='verify_email'),
     path('resend_otp/',views.resend_otp,name="resend_otp"),
     path('profile_resend_otp/',views.profile_resend_otp,name="profile_resend_otp"),
+    path('delete_account/',views.delete_account, name='delete_account'),
+    path('delete_verify_email/<str:token>/', views.delete_verify_email, name='delete_verify_email'),
+
 ]

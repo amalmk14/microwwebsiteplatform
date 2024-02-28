@@ -23,15 +23,128 @@ from django.template.loader import render_to_string
 def generate_token():
     return ''.join(random.choices(string.ascii_letters + string.digits, k=20))
 
+from .utils import generate_token
+# Example usage in the signup view:
+token = generate_token()
+
+
 # Create your views here.
 
+from django.db import transaction
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.urls import reverse
 
 
-def logout(request):
-    request.session['is_logged_in'] = False
-    return render(request,"home.html")
+#signup
+from django.db import transaction
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .models import Profile, EmailVerificationToken
+from django.urls import reverse
+from django.conf import settings
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+import random
+import string
+import re
+
+@transaction.atomic
+def signup(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        email = request.POST['email']
+        phone = request.POST['phone']
+        password1 = request.POST['password1']
+        password2 = request.POST['password2']
+
+        password_pattern = re.compile(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$')
+        if password1 == password2:
+            if not password_pattern.match(password1):
+                messages.info(request, 'Password must contain "A-a-@-0" and 8 characters long.')
+                return redirect('login:signup')
+
+            with transaction.atomic():
+                existing_user_username = Profile.objects.filter(name=username).first()
+                existing_user_email = Profile.objects.filter(email=email).first()
+
+                if existing_user_username:
+                    if existing_user_username.is_verified:
+                        messages.info(request, 'Username Already Taken')
+                        return redirect('login:signup')
+                    else:
+                        # Delete the existing user's data
+                        existing_user_username.delete()
+
+                if existing_user_email:
+                    if existing_user_email.is_verified:
+                        messages.info(request, 'Email Already Taken')
+                        return redirect('login:signup')
+                    else:
+                        # Delete the existing user's data
+                        existing_user_email.delete()
+
+                # Generate a random alphanumeric cuid
+                cuid = ''.join(random.choices(string.ascii_letters + string.digits, k=10))
+
+                # Create the user with is_verified set to False
+                user = Profile(name=username, password=password1, email=email, cuid=cuid,phone=phone, is_verified=False)
+                user.save()
+
+                # Generate and save the email verification token
+                token = generate_token()
+                verification_token = EmailVerificationToken(token=token)
+
+                # Create the user with is_verified set to False
+                # user = Profile(name=username, password=password1, email=email, is_verified=False)
+                # user.save()
+
+                # Link the verification token to the user
+                verification_token.user = user  # Make sure to set the user
+                verification_token.save()
+
+                # Construct the verification link
+                verification_link = reverse('login:verify_email', kwargs={'token': token})
+                verification_url = request.build_absolute_uri(verification_link)
+
+                # Send email with the verification link
+                subject = 'Verify Your Email'
+                message = render_to_string('email/verification_email.txt', {'user': user, 'verification_url': verification_url})
+                email_from = settings.EMAIL_HOST_USER
+                recipient_list = [user.email]
+
+                send_mail(subject, message, email_from, recipient_list)
+
+                messages.info(request, 'Account created successfully. Please check your email for verification.')
+                return redirect('login:signin')
+        else:
+            messages.info(request,'Password Not matched')
+    return render(request, "login.html")
 
 
+from django.http import Http404
+from .models import EmailVerificationToken
+
+def verify_email(request, token):
+    try:
+        verification_token = EmailVerificationToken.objects.get(token=token)
+    except EmailVerificationToken.DoesNotExist:
+        raise Http404("Token not found")
+
+    # Mark the user as verified
+    verification_token.user.is_verified = True
+    verification_token.user.save()
+
+    # Delete the verification token
+    verification_token.delete()
+    return render(request, "verification_success.html")
+
+
+#signin
+from django.http import HttpResponseRedirect
+from django.contrib import messages
+from django.urls import reverse
+from .models import Profile
 
 def signin(request):
     if request.method == 'POST':
@@ -53,13 +166,24 @@ def signin(request):
     return render(request, 'login.html')
 
 
+def logout(request):
+    request.session['is_logged_in'] = False
+    request.session.clear()
+    return render(request,"home.html")
+
+#forgetpassword
+import random
+from datetime import datetime
+from django.contrib import messages
+from django.core.mail import send_mail
+from django.conf import settings
+from django.urls import reverse
+from django.utils import timezone
+from .models import Profile, Storedotps
+
 def forgot_password(request):
     if request.method == 'POST':
         email = request.POST.get('email', '').strip()
-
-        # if not email:
-        #     messages.error(request, "Please enter your email.")
-        #     return redirect('login:signin')
 
         if Profile.objects.filter(email=email).exists():
             OTP = random.randint(100000, 999999)
@@ -84,16 +208,14 @@ def forgot_password(request):
         else:
             messages.error(request, "Email is not registered on our site.")
             return redirect('login:signin')
-
     return render(request, "forgot_password.html")
 
 
 # otp experation
+from datetime import timedelta
+from django.utils import timezone
+
 def is_otp_expired(otp_data):
-    # expiration_duration = datetime.timedelta(minutes=5)
-    # now = timezone.now()
-    # print("expire checking...")
-    # return now - otp_data.valid_from > expiration_duration
     expiration_duration = timedelta(minutes=5)
     now = timezone.now()
     return now - otp_data.valid_from > expiration_duration
@@ -110,7 +232,6 @@ def handle_otp(request):
 
         # Combine the OTP digits to form the complete OTP
         otp_valid = otp_1 + otp_2 + otp_3 + otp_4 + otp_5 + otp_6
-
         user_email = request.session.get('user_email', None)
         print(user_email)
 
@@ -119,23 +240,12 @@ def handle_otp(request):
         except Storedotps.DoesNotExist:
             messages.error(request, "Invalid OTP or OTP has expired.")
             return redirect('login:forgot_password')
-    # if request.method == 'POST':
-    #     otp_valid = request.POST['otp']
-    #     user_email = request.session.get('user_email', None)
-    #     print(user_email)
-
-    #     try:
-    #         otp_data = Storedotps.objects.get(email_id=user_email, otp_active=True)
-    #     except Storedotps.DoesNotExist:
-    #         messages.error(request, "Invalid OTP or OTP has expired.")
-    #         return redirect('login:forgot_password')
 
         if otp_valid == str(otp_data.otp):
             if not is_otp_expired(otp_data):
                 otp_data.is_active = False
                 print("otp valid")
                 otp_data.save()
-
                 return redirect('login:password_update')  # Redirect to a success page
             else:
                 messages.error(request, "otp is expired")
@@ -271,9 +381,6 @@ def profile_handle_otp(request):
         # Combine the OTP digits to form the complete OTP
         otp_valid = otp_1 + otp_2 + otp_3 + otp_4 + otp_5 + otp_6
 
-        # if request.method == 'POST':
-        # otp_valid = request.POST['otp']
-
         user_email = request.session.get('user_email', None)
         print(user_email)
 
@@ -321,117 +428,6 @@ def profile_password_update(request):
             return redirect('login:profile_password_update')
     return render(request, "profile/profile_password_change.html")
 
-
-
-from .utils import generate_token
-
-# ... (your view code)
-
-# Example usage in the signup view:
-token = generate_token()
-
-
-# login/views.py
-from django.db import transaction
-from django.core.mail import send_mail
-from django.template.loader import render_to_string
-from django.urls import reverse
-
-# ...
-
-@transaction.atomic
-def signup(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        email = request.POST['email']
-        phone = request.POST['phone']
-        password1 = request.POST['password1']
-        password2 = request.POST['password2']
-
-        password_pattern = re.compile(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$')
-        if password1 == password2:
-            if not password_pattern.match(password1):
-                messages.info(request, 'Password must contain "A-a-@-0" and 8 characters long.')
-                return redirect('login:signup')
-
-            with transaction.atomic():
-                existing_user_username = Profile.objects.filter(name=username).first()
-                existing_user_email = Profile.objects.filter(email=email).first()
-
-                if existing_user_username:
-                    if existing_user_username.is_verified:
-                        messages.info(request, 'Username Already Taken')
-                        return redirect('login:signup')
-                    else:
-                        # Delete the existing user's data
-                        existing_user_username.delete()
-
-                if existing_user_email:
-                    if existing_user_email.is_verified:
-                        messages.info(request, 'Email Already Taken')
-                        return redirect('login:signup')
-                    else:
-                        # Delete the existing user's data
-                        existing_user_email.delete()
-
-                # Generate a random alphanumeric cuid
-                cuid = ''.join(random.choices(string.ascii_letters + string.digits, k=10))
-
-                # Create the user with is_verified set to False
-                user = Profile(name=username, password=password1, email=email, cuid=cuid,phone=phone, is_verified=False)
-                user.save()
-
-                # Generate and save the email verification token
-                token = generate_token()
-                verification_token = EmailVerificationToken(token=token)
-
-                # Create the user with is_verified set to False
-                # user = Profile(name=username, password=password1, email=email, is_verified=False)
-                # user.save()
-
-                # Link the verification token to the user
-                verification_token.user = user  # Make sure to set the user
-                verification_token.save()
-
-                # Construct the verification link
-                verification_link = reverse('login:verify_email', kwargs={'token': token})
-                verification_url = request.build_absolute_uri(verification_link)
-
-                # Send email with the verification link
-                subject = 'Verify Your Email'
-                message = render_to_string('email/verification_email.txt', {'user': user, 'verification_url': verification_url})
-                email_from = settings.EMAIL_HOST_USER
-                recipient_list = [user.email]
-
-                send_mail(subject, message, email_from, recipient_list)
-
-                messages.info(request, 'Account created successfully. Please check your email for verification.')
-                return redirect('login:signin')
-        else:
-            messages.info(request,'Password Not matched')
-
-    return render(request, "login.html")
-
-
-
-from django.shortcuts import render, redirect
-from django.http import Http404
-from .models import EmailVerificationToken
-
-def verify_email(request, token):
-    try:
-        verification_token = EmailVerificationToken.objects.get(token=token)
-    except EmailVerificationToken.DoesNotExist:
-        raise Http404("Token not found")
-
-    # Mark the user as verified
-    verification_token.user.is_verified = True
-    verification_token.user.save()
-
-    # Delete the verification token
-    verification_token.delete()
-
-    return render(request, "verification_success.html")
 
 
 
@@ -505,3 +501,58 @@ def profile_resend_otp(request):
         return render(request, "profile/profile_forgot_password.html", {'email': user_email})
 
     return render(request, "profile/profile_forgot_password.html")
+
+
+
+def delete_account(request):
+    if request.method == 'POST':
+        username = request.session.get('username')
+
+        # Fetch the user profile from the database
+        try:
+            user_profile = Profile.objects.get(name=username)
+        except Profile.DoesNotExist:
+            messages.error(request, 'Profile not found.')
+            return redirect('mainapp:home')  # Handle the situation where the profile does not exist
+
+        # Generate a delete token and save it in the database
+        token = generate_token()
+        delete_verification_token = DeleteVerificationToken(token=token, user=user_profile)
+        delete_verification_token.save()
+
+        delete_verification_link = reverse('login:delete_verify_email', kwargs={'token': token})
+        delete_verification_url = request.build_absolute_uri(delete_verification_link)
+
+        # Send email with the verification link
+        subject = 'Verify Your Email'
+        message = render_to_string('email/delete_verification_email.txt', {'user': user_profile, 'verification_url': delete_verification_url})
+        email_from = settings.EMAIL_HOST_USER
+        recipient_list = [user_profile.email]
+
+        send_mail(subject, message, email_from, recipient_list)
+
+        messages.info(request, ' Please check your email for verification.')
+        return redirect('login:profile_page')
+    return render(request, 'profile/profile.html.html')
+
+
+from django.shortcuts import render, redirect
+from django.http import Http404
+from .models import DeleteVerificationToken
+
+def delete_verify_email(request, token):
+    try:
+        delete_verification_token = DeleteVerificationToken.objects.get(token=token)
+    except DeleteVerificationToken.DoesNotExist:
+        raise Http404("Token not found")
+    
+    name = request.session.get('username')
+    user = Profile.objects.get(name=name)
+    user.delete()
+
+    # Clear all session data
+    request.session.clear()
+
+    # Delete the verification token
+    delete_verification_token.delete()
+    return render(request, "email/delete_verification_success.html")

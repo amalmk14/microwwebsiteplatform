@@ -443,8 +443,10 @@ button.warning-toast {
 <!--    <button type="button" class="toast-btn success-toast" msg="Settings saved" icon="fa-check" icon-color="#27ae60" animation="slide-in-slide-out">Success</button></div>-->
 
   <!-- ======= Hero Section ======= -->
-  <section id="hero" class="d-flex flex-column justify-content-end align-items-center">
+  <section id="hero" class="d-flex flex-column justify-content-end align-items-center" style="background-image: url('static/dumm/black.jpg'); background-size: cover; background-position: center;  position: relative; overflow: hidden;">
     <div id="heroCarousel" data-bs-interval="5000" class="container carousel carousel-fade" data-bs-ride="carousel">
+  <!-- <section id="hero" class="d-flex flex-column justify-content-end align-items-center"> -->
+    <!-- <div id="heroCarousel" data-bs-interval="5000" class="container carousel carousel-fade" data-bs-ride="carousel"> -->
 
       <!-- Slide 1 -->
       <div class="carousel-item active">
@@ -473,13 +475,19 @@ button.warning-toast {
         </div>
       </div>
 
-      <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
+      <!-- <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
         <span class="carousel-control-prev-icon bx bx-chevron-left" aria-hidden="true"></span>
       </a>
 
       <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
         <span class="carousel-control-next-icon bx bx-chevron-right" aria-hidden="true"></span>
-      </a>
+      </a> -->
+
+      <ol class="carousel-indicators">
+        <li data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></li>
+        <li data-bs-target="#heroCarousel" data-bs-slide-to="1"></li>
+        <li data-bs-target="#heroCarousel" data-bs-slide-to="2"></li>
+    </ol>
 
     </div>
 
@@ -1046,7 +1054,7 @@ button.warning-toast {
         });
 
         // Set the cookie to indicate that the modal has been shown
-        document.cookie = 'modalShown=true; path=/; max-age=43200';  // Max-age set to one year
+        document.cookie = 'modalShown=true; path=/; max-age=6000';  // Max-age set to one year
     }
 </script>
 

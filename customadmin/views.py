@@ -68,10 +68,18 @@ def adminHome(request):
         return redirect('customadmin:adminhome')
     return render(request,'cuadmin/index.html',{'user':user,'contact':contact})
 
+# def adminWidget(request):
+#     orders = Orders.objects.filter()
+#     f_orders = PaymentFailed.objects.all()
+#     s_orders = PaymentSuccess.objects.all()
+#     return render(request,"cuadmin/widget.html",{'orders':orders,"f_orders":f_orders,"s_orders":s_orders})
+
 def adminWidget(request):
-    orders = Orders.objects.filter(amount_paid=True)
+    orders = Orders.objects.filter()
     f_orders = PaymentFailed.objects.all()
-    return render(request,"cuadmin/widget.html",{'orders':orders,"f_orders":f_orders})
+    s_orders = PaymentSuccess.objects.all()
+    return render(request, "cuadmin/widget.html", {'orders': orders, "f_orders": f_orders, "s_orders": s_orders})
+
 
 def adminProfile(request):
     users = Profile.objects.filter(is_verified=True)
