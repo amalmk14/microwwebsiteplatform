@@ -483,10 +483,24 @@ button.warning-toast {
         <span class="carousel-control-next-icon bx bx-chevron-right" aria-hidden="true"></span>
       </a> -->
 
-      <ol class="carousel-indicators">
-        <li data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></li>
-        <li data-bs-target="#heroCarousel" data-bs-slide-to="1"></li>
-        <li data-bs-target="#heroCarousel" data-bs-slide-to="2"></li>
+
+<style>
+.carousel-indicators li {
+    display: inline-block;
+    width: 20px; /* Set the width of the circle */
+    height: 20px; /* Set the height of the circle */
+    margin: 0 4px;
+    text-indent: -999px;
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: #ddd; /* Set the background color of the circle */
+    border: 2px solid #ddd; /* Set the border color of the circle */
+}
+</style>
+    <ol class="carousel-indicators">
+        <li data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" style="height: 20px;width: 20px;;"></li>
+        <li data-bs-target="#heroCarousel" data-bs-slide-to="1" style="height: 20px;width: 20px;;"></li>
+        <li data-bs-target="#heroCarousel" data-bs-slide-to="2" style="height: 20px;width: 20px;;"></li>
     </ol>
 
     </div>
@@ -909,25 +923,29 @@ button.warning-toast {
           <div class="col-lg-4" data-aos="fade-right">
             <div class="info">
               <div class="address">
-                <i class="bi bi-geo-alt"></i>
-                <h4>Location:</h4>
-                <p>A108 Adam Street, New York, NY 535022</p>
+                <a href="https://maps.app.goo.gl/nGj2p4vwpQtx8NGL8" target="_blank" style="text-decoration: none;">
+                  <i class="bi bi-geo-alt"></i>
+                  <h4>Location:</h4>
+                  <p>A108 Adam Street, New York, NY 535022</p>
+                </a>
               </div>
 
               <div class="email">
-                <i class="bi bi-envelope"></i>
-                <h4>Email:</h4>
-                <p>info@example.com</p>
+                <a href="mailto:info@example.com" style="text-decoration: none;">
+                  <i class="bi bi-envelope"></i>
+                  <h4>Email:</h4>
+                  <p>info@example.com</p>
+                </a>
               </div>
 
               <div class="phone">
-                <i class="bi bi-phone"></i>
-                <h4>Call:</h4>
-                <p>+1 5589 55488 55s</p>
+                <a href="tel:+1 5589 55488 55" style="text-decoration: none;">
+                  <i class="bi bi-phone"></i>
+                  <h4>Call:</h4>
+                  <p>+1 5589 55488 55</p>
+                </a>
               </div>
-
             </div>
-
           </div>
 
           <div class="col-lg-8 mt-5 mt-lg-0" data-aos="fade-left">
@@ -960,19 +978,12 @@ button.warning-toast {
 <!--        <div>{{ success_message }}</div>-->
 <!--    {% endif %}</div>-->
 
-
-
-
-
           </div>
-
         </div>
-
       </div>
     </section><!-- End Contact Section -->
      <div class="sent-message">
   </div>
-
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
