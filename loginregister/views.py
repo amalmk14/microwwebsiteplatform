@@ -556,3 +556,5 @@ def delete_verify_email(request, token):
     # Delete the verification token
     delete_verification_token.delete()
     return render(request, "email/delete_verification_success.html")
+
+
