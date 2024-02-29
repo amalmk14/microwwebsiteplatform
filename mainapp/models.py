@@ -38,6 +38,7 @@ class Orders(models.Model):
     order_id = models.AutoField(primary_key=True)
     order_date = models.DateTimeField(auto_now_add=True)
     template_name = models.CharField(max_length=100)
+    template_img = models.ImageField(upload_to="orderimage")
     username = models.CharField(max_length=100)
     email = models.CharField(max_length=100)
     razorpay_order_id = models.CharField(max_length=100,blank=True)

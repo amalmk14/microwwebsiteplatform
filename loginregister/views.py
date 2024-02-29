@@ -308,6 +308,9 @@ def profile_page(request):
         phone = profile_object.phone
         country = profile_object.country
 
+        purchase_details = Orders.objects.filter(username=name, amount_paid=True)
+
+
     if request.method == 'POST':
         phone = request.POST['phone']
         country = request.POST['country']
@@ -315,7 +318,7 @@ def profile_page(request):
         profile_object.country = country
         profile_object.save()
         return redirect('login:profile_page')
-    return render(request,'profile/profile.html',{'name':name,'email':email,'phone':phone,'country':country})
+    return render(request,'profile/profile.html',{'name':name,'email':email,'phone':phone,'country':country,'purchase_details': purchase_details})
 
 def profile_password(request):
     name = request.session.get('username')
@@ -470,8 +473,6 @@ def resend_otp(request):
         return render(request, "forgot_password.html", {'email': user_email})
 
     return render(request, "forgot_password.html")
-
-
 
 from .models import Profile  # Import your custom Profile model
 

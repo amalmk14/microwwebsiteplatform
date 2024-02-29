@@ -278,7 +278,7 @@ def checkout(request, id):
                 # Delete the existing order
                 existing_order.delete()
 
-            orders = Orders(username=name, email=email, template_name=template.name,
+            orders = Orders(username=name, email=email, template_name=template.name,template_img=template.temp_img,
                             template_amount=template.price, template_category=template.category,
                             order_date=timezone.now(), final_amount=final_amount, coupen_code=code,
                             host_name=host)

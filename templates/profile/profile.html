@@ -83,7 +83,20 @@ color:#69707a;
             <div class="card mb-4 mb-xl-0">
                 <div class="card-header"></div>
                 <div class="card-body text-center" style="padding-bottom:90px;">
-                    <img class="img-account-profile rounded-circle mb-2" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" name="image">
+                    <h3>Purchased Templates:</h3>
+  <ul>
+    {% for purchase in purchase_details %}
+      <li>
+                            <img class="img-account-profile mb-2" src="{{purchase.template_img.url }}" alt="" name="image">
+
+        <!-- Template Name: <img src="{{purchase.template_img.url }}"><br> -->
+        Template Amount: {{ purchase.template_amount }}<br>
+        Purchase Date: {{ purchase.order_date }}
+      </li>
+    {% endfor %}
+  </ul>
+
+                    <!-- <img class="img-account-profile rounded-circle mb-2" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" name="image"> -->
 <!--                        <img class="img-account-profile rounded-circle mb-2" src="{{p.image.url}}" alt="" name="image">-->
 <!--                        <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>-->
 <!--                        <button class="btn" type="button" style="background-color:#ce1212;color:white;">Upload new image</button>-->
