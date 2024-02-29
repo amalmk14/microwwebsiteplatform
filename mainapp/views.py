@@ -348,6 +348,8 @@ def success(request):
             # Delete the used coupon code
             coupen_code = get_object_or_404(Coupen_code, code=coupen_code_used)
             coupen_code.delete()
+            # Clear the coupon session
+            request.session.pop('code', None)
 
     # Update the order's amount_paid status
     orders.amount_paid = True
