@@ -279,9 +279,8 @@ def checkout(request, id):
                 existing_order.delete()
 
             orders = Orders(username=name, email=email, template_name=template.name,template_img=template.temp_img,
-                            template_amount=template.price, template_category=template.category,
-                            order_date=timezone.now(), final_amount=final_amount, coupen_code=code,
-                            host_name=host)
+                            template_id=template.id,template_amount=template.price, template_category=template.category,
+                            order_date=timezone.now(), final_amount=final_amount, coupen_code=code,host_name=host)
             orders.save()
 
     client = razorpay.Client(auth=(settings.KEY, settings.SECRET))

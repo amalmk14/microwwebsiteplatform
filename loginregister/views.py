@@ -308,7 +308,8 @@ def profile_page(request):
         phone = profile_object.phone
         country = profile_object.country
 
-        purchase_details = Orders.objects.filter(username=name, amount_paid=True)
+        purchased_template = Orders.objects.filter(username=name, amount_paid=True)
+        selected_template = Orders.objects.filter(username=name, amount_paid=False)
 
 
     if request.method == 'POST':
@@ -318,7 +319,7 @@ def profile_page(request):
         profile_object.country = country
         profile_object.save()
         return redirect('login:profile_page')
-    return render(request,'profile/profile.html',{'name':name,'email':email,'phone':phone,'country':country,'purchase_details': purchase_details})
+    return render(request,'profile/profile.html',{'name':name,'email':email,'phone':phone,'country':country,'purchased_template': purchased_template,'selected_template':selected_template})
 
 def profile_password(request):
     name = request.session.get('username')

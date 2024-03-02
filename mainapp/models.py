@@ -39,6 +39,7 @@ class Orders(models.Model):
     order_date = models.DateTimeField(auto_now_add=True)
     template_name = models.CharField(max_length=100)
     template_img = models.ImageField(upload_to="orderimage")
+    template_id = models.TextField(null=False)
     username = models.CharField(max_length=100)
     email = models.CharField(max_length=100)
     razorpay_order_id = models.CharField(max_length=100,blank=True)
@@ -49,9 +50,7 @@ class Orders(models.Model):
     coupen_code = models.CharField(blank=True,max_length=20,null=True)
     final_amount = models.IntegerField(default=0)
     plan = models.CharField(max_length=20,blank=True,default=True)
-
     amount_paid = models.BooleanField(default=False)
-
     host_name = models.TextField()
 
     def __str__(self):
