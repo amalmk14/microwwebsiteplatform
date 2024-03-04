@@ -179,8 +179,8 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 # SECRET = "MM12MIp7HjLEFcV1vzJngvJn"
 
 
-KEY="rzp_test_NcFQDSHN7XYIPQ"
-SECRET="5HJdpdQXAv7DHYov2PdC2MTh"
+KEY=config('KEY')
+SECRET=config('SECRET')
 
 
 #googleaccountsignup
