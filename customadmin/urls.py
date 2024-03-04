@@ -7,6 +7,7 @@ urlpatterns = [
     path("",views.adminLogin,name="adminlogin"),
     path("adminhomel",views.adminLogout,name="adminlogout"),
     path("adminhome", views.adminHome, name="adminhome"),
+    path("deleteMessage/<int:id>/",views.deleteMessage,name='deletemessage'),
     path("adminwidget",views.adminWidget,name="adminwidget"),
     path('adminprofile,',views.adminProfile,name='adminprofile'),
     path("admintable",views.adminTable,name="admintable"),

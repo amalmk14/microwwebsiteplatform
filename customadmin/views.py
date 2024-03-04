@@ -68,6 +68,14 @@ def adminHome(request):
         return redirect('customadmin:adminhome')
     return render(request,'cuadmin/index.html',{'user':user,'contact':contact})
 
+def deleteMessage(request,id):
+    msg = Contact.objects.get(id=id)
+    if request.method == 'POST':
+        msg.delete()
+        return redirect('customadmin:adminhome')
+    # return render(request,'cuadmin/index.html')
+    
+
 # def adminWidget(request):
 #     orders = Orders.objects.filter()
 #     f_orders = PaymentFailed.objects.all()
