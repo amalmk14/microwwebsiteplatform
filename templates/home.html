@@ -445,7 +445,7 @@ button.warning-toast {
 <!--    <button type="button" class="toast-btn success-toast" msg="Settings saved" icon="fa-check" icon-color="#27ae60" animation="slide-in-slide-out">Success</button></div>-->
 
   <!-- ======= Hero Section ======= -->
-  <section id="hero" class="d-flex flex-column justify-content-end align-items-center" style="background-image: url('static/dumm/homeback7.jpg'); background-size: cover; background-position: center;  position: relative; overflow: hidden;">
+  <section id="hero" class="d-flex flex-column justify-content-end align-items-center" style="background-image: url('static/dumm/homeback7.jpg'); background-size: cover; background-position: center;  position: relative; overflow: hidden;box-shadow: 0 0 40px 0 rgba(0, 0, 0, 0.8);">
     <div id="heroCarousel" data-bs-interval="5000" class="container carousel carousel-fade" data-bs-ride="carousel">
   <!-- <section id="hero" class="d-flex flex-column justify-content-end align-items-center"> -->
     <!-- <div id="heroCarousel" data-bs-interval="5000" class="container carousel carousel-fade" data-bs-ride="carousel"> -->
@@ -486,7 +486,7 @@ button.warning-toast {
       </a> -->
 
 
-<style>
+<!-- <style>
 .carousel-indicators li {
     display: inline-block;
     width: 20px; /* Set the width of the circle */
@@ -500,10 +500,42 @@ button.warning-toast {
 }
 </style>
     <ol class="carousel-indicators">
-        <li data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" style="height: 20px;width: 20px;;"></li>
-        <li data-bs-target="#heroCarousel" data-bs-slide-to="1" style="height: 20px;width: 20px;;"></li>
-        <li data-bs-target="#heroCarousel" data-bs-slide-to="2" style="height: 20px;width: 20px;;"></li>
-    </ol>
+        <li data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" style="height: 20px;width: 20px;"></li>
+        <li data-bs-target="#heroCarousel" data-bs-slide-to="1" style="height: 20px;width: 20px;"></li>
+        <li data-bs-target="#heroCarousel" data-bs-slide-to="2" style="height: 20px;width: 20px;"></li>
+    </ol> -->
+
+    <style>
+      .carousel-indicators {
+          position: absolute;
+          bottom: 10px; /* Adjust the bottom value as needed */
+          left: 50%;
+          transform: translateX(-50%);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin: 0;
+          padding: 0;
+      }
+
+      .carousel-indicators li {
+          display: inline-block;
+          width: 20px;
+          height: 20px;
+          margin: 0 4px;
+          text-indent: -999px;
+          cursor: pointer;
+          border-radius: 50%;
+          background-color: #ddd;
+          border: 2px solid #ddd;
+      }
+      
+  </style>
+  <ol class="carousel-indicators">
+      <li data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" style="height: 20px;width: 20px;"></li>
+      <li data-bs-target="#heroCarousel" data-bs-slide-to="1" style="height: 20px;width: 20px;"></li>
+      <li data-bs-target="#heroCarousel" data-bs-slide-to="2" style="height: 20px;width: 20px;"></li>
+  </ol>
 
     </div>
 
