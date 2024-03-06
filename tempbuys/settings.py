@@ -35,10 +35,10 @@ DEBUG = config('DEBUG', cast=bool)
 # ALLOWED_HOSTS = []
 ALLOWED_HOSTS = ['*','192.168.29.223','127.0.0.1','127.0.0.1:8000']
 CORS_ALLOWERD_ORIGINS = [
-    "https://d5e2-2402-3a80-1293-e148-3039-a957-7d55-adfe.ngrok-free.app"
+    "https://ce01-2405-201-f00c-1-49ac-665c-f6f1-a081.ngrok-free.app"
 ]
 CSRF_TRUSTED_ORIGINS = [
-    "https://d5e2-2402-3a80-1293-e148-3039-a957-7d55-adfe.ngrok-free.app"
+    "https://ce01-2405-201-f00c-1-49ac-665c-f6f1-a081.ngrok-free.app"
 ]
 
 
