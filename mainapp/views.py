@@ -436,3 +436,4 @@ def somethingwentwrong(request):
         messages.warning(request,"Login & Try Again")
         return redirect('register:login')
     return render(request,"pay/somethingwentwrong.html")
+
