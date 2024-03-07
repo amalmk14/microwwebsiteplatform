@@ -400,8 +400,9 @@ body {
 					<div class="form sign-up">
 						<div class="input-group">
 							<i class='bx bxs-user'></i>
-							<input type="text" placeholder="Username" name="username">
+							<input type="text" placeholder="Username" id="username" name="username">
 						</div>
+                        <div id="username-check"></div>
 						<div class="input-group">
 							<i class='bx bx-mail-send'></i>
 							<input type="email" placeholder="Email" name="email">
@@ -443,6 +444,44 @@ body {
 				</div>
 			
 			</div>
+
+            
+            <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+            <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('username').addEventListener('input', function() {
+            var username = this.value;
+            var errorMessage = document.getElementById('username-check');
+
+            if (username) {
+                $.ajax({
+                    type: "GET",
+                    url: "{% url 'login:check_username' %}",
+                    data: {'username': username},
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.available) {
+                            errorMessage.innerHTML = '';
+                            errorMessage.style.color = 'green';
+                            document.getElementById('registerButton').disabled = false;
+                        } else {
+                            errorMessage.innerHTML = 'Username already exists';
+                            errorMessage.style.color = 'red';
+                            document.getElementById('registerButton').disabled = true;
+                        }
+                    }
+                });
+            } else {
+                errorMessage.innerHTML = '';
+                document.getElementById('registerButton').disabled = true;
+            }
+        });
+    });
+</script>
+
+           
 
             <script>
                 function validatePassword() {
