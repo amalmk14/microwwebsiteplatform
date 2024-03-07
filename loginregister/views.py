@@ -643,4 +643,14 @@ def check_username(request):
         return JsonResponse({'available': False, 'message': 'Username already exists'})
     else:
         return JsonResponse({'available': True, 'message': 'Username is available'})
+    
+
+def check_email(request):
+    email = request.GET.get('email')
+
+    if Profile.objects.filter(email=email).exists():
+        return JsonResponse({'available': False, 'message': 'Email already exists'})
+    else:
+        return JsonResponse({'available': True, 'message': 'Email is available'})
+
 

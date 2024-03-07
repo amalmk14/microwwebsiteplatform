@@ -405,8 +405,9 @@ body {
                         <div id="username-check"></div>
 						<div class="input-group">
 							<i class='bx bx-mail-send'></i>
-							<input type="email" placeholder="Email" name="email">
+							<input type="email" placeholder="Email" id="email" name="email">
 						</div>
+                        <div id="email-check"></div>
 						<div class="input-group">
 							<i class='bx bx-mail-send'></i>
 							<input type="number" placeholder="Phone NO" name="phone">
@@ -445,85 +446,7 @@ body {
 			
 			</div>
 
-            
-            <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
-            <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById('username').addEventListener('input', function() {
-            var username = this.value;
-            var errorMessage = document.getElementById('username-check');
-
-            if (username) {
-                $.ajax({
-                    type: "GET",
-                    url: "{% url 'login:check_username' %}",
-                    data: {'username': username},
-                    dataType: 'json',
-                    success: function(data) {
-                        if (data.available) {
-                            errorMessage.innerHTML = '';
-                            errorMessage.style.color = 'green';
-                            document.getElementById('registerButton').disabled = false;
-                        } else {
-                            errorMessage.innerHTML = 'Username already exists';
-                            errorMessage.style.color = 'red';
-                            document.getElementById('registerButton').disabled = true;
-                        }
-                    }
-                });
-            } else {
-                errorMessage.innerHTML = '';
-                document.getElementById('registerButton').disabled = true;
-            }
-        });
-    });
-</script>
-
-           
-
-            <script>
-                function validatePassword() {
-                  var password1 = document.getElementById('password1').value;
-                  var password2 = document.getElementById('password2').value;
-                  var errorMessage = document.getElementById('error-message');
-            
-                  var uppercaseRegex = /[A-Z]/;
-                  var lowercaseRegex = /[a-z]/;
-                  var digitRegex = /\d/;
-                  var specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
-            
-                  errorMessage.textContent = '';
-            
-                  if (password1.length < 8) {
-                    errorMessage.textContent += 'Password should be at least 8 characters long.<br>';
-                  }
-            
-                  if (!uppercaseRegex.test(password1)) {
-                    errorMessage.textContent += 'Password should contain at least one uppercase letter.<br>';
-                  }
-            
-                  if (!lowercaseRegex.test(password1)) {
-                    errorMessage.textContent += 'Password should contain at least one lowercase letter.<br>';
-                  }
-            
-                  if (!digitRegex.test(password1)) {
-                    errorMessage.textContent += 'Password should contain at least one digit.<br>';
-                  }
-            
-                  if (!specialCharRegex.test(password1)) {
-                    errorMessage.textContent += 'Password should contain at least one special character.<br>';
-                  }
-            
-                  if (password1 !== password2 && password2.length > 0) {
-                    errorMessage.textContent += 'Passwords do not match.<br>';
-                  }
-                }
-            
-                document.getElementById('password1').addEventListener('input', validatePassword);
-                document.getElementById('password2').addEventListener('input', validatePassword);
-              </script>
+                   
 			<!-- END SIGN UP -->
 			<!-- SIGN IN -->
 			<div class="col align-items-center flex-col sign-in">
@@ -678,57 +601,118 @@ setTimeout(() => {
 </script>
 
 
+<!-- username already taken -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('username').addEventListener('input', function() {
+            var username = this.value;
+            var errorMessage = document.getElementById('username-check');
 
+            if (username) {
+                $.ajax({
+                    type: "GET",
+                    url: "{% url 'login:check_username' %}",
+                    data: {'username': username},
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.available) {
+                            errorMessage.innerHTML = '';
+                            errorMessage.style.color = 'green';
+                            document.getElementById('registerButton').disabled = false;
+                        } else {
+                            errorMessage.innerHTML = 'Username already exists';
+                            errorMessage.style.color = 'red';
+                            document.getElementById('registerButton').disabled = true;
+                        }
+                    }
+                });
+            } else {
+                errorMessage.innerHTML = '';
+                document.getElementById('registerButton').disabled = true;
+            }
+        });
+    });
+</script>
+
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('email').addEventListener('input', function() {
+            var email = this.value;
+            var errorMessage = document.getElementById('email-check');
+
+            if (email) {
+                $.ajax({
+                    type: "GET",
+                    url: "{% url 'login:check_email' %}",
+                    data: {'email': email},
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.available) {
+                            errorMessage.innerHTML = '';
+                            errorMessage.style.color = 'green';
+                            document.getElementById('registerButton').disabled = false;
+                        } else {
+                            errorMessage.innerHTML = 'Email already exists';
+                            errorMessage.style.color = 'red';
+                            document.getElementById('registerButton').disabled = true;
+                        }
+                    }
+                });
+            } else {
+                errorMessage.innerHTML = '';
+                document.getElementById('registerButton').disabled = true;
+            }
+        });
+    });
+</script>
 <!-- password matching and strength -->
+
 <script>
     function checkPasswordStrength() {
-      var password = document.getElementById('password').value;
-      var strengthText = document.getElementById('strengthText');
+        var password = document.getElementById('password').value;
+        var strengthText = document.getElementById('strengthText');
 
-      var missingCriteria = [];
-      if (!/[A-Z]/.test(password)) missingCriteria.push('A-Z');
-      if (!/[a-z]/.test(password)) missingCriteria.push('a-z');
-      if (!/\d/.test(password)) missingCriteria.push('0');
-      if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) missingCriteria.push('@');
-      if (password.length < 8) missingCriteria.push('8 digits');
+        var missingCriteria = [];
+        if (!/[A-Z]/.test(password)) missingCriteria.push('A-Z');
+        if (!/[a-z]/.test(password)) missingCriteria.push('a-z');
+        if (!/\d/.test(password)) missingCriteria.push('0');
+        if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) missingCriteria.push('@');
+        if (password.length < 8) missingCriteria.push('8 digits');
 
-    //   if (!/[A-Z]/.test(password)) missingCriteria.push('Uppercase letter');
-    //   if (!/[a-z]/.test(password)) missingCriteria.push('Lowercase letter');
-    //   if (!/\d/.test(password)) missingCriteria.push('Number');
-    //   if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) missingCriteria.push('Special character');
-    //   if (password.length < 8) missingCriteria.push('Minimum length of 8 characters');
-
-      strengthText.innerHTML = missingCriteria.length > 0 ? 'Password must have: ' + missingCriteria.join(', ') : '';
+        strengthText.innerHTML = missingCriteria.length > 0 ? 'Password must have: ' + missingCriteria.join(', ') : '';
     }
 
     function checkPasswordMatch() {
-      var password = document.getElementById('password').value;
-      var confirmPassword = document.getElementById('confirmPassword').value;
-      var matchText = document.getElementById('matchText');
+        var password = document.getElementById('password').value;
+        var confirmPassword = document.getElementById('confirmPassword').value;
+        var matchText = document.getElementById('matchText');
 
-      matchText.innerHTML = password !== confirmPassword ? 'Passwords do not match' : '';
+        matchText.innerHTML = password !== confirmPassword ? 'Passwords do not match' : '';
     }
 
     function validatePassword() {
-      var password = document.getElementById('password').value;
-      var confirmPassword = document.getElementById('confirmPassword').value;
-      var strengthText = document.getElementById('strengthText');
-      var matchText = document.getElementById('matchText');
+        var password = document.getElementById('password').value;
+        var confirmPassword = document.getElementById('confirmPassword').value;
+        var strengthText = document.getElementById('strengthText');
+        var matchText = document.getElementById('matchText');
 
-      // Check if the password is strong and matches
-      if (/[A-Z]/.test(password) && /[a-z]/.test(password) && /\d/.test(password) &&
-          /[!@#$%^&*(),.?":{}|<>]/.test(password) && password.length >= 8 && password === confirmPassword) {
-        alert("Password is valid!");
-      } else {
-        if (password !== confirmPassword) {
-          alert("Passwords do not match.");
+        // Check if the password is strong and matches
+        if (/[A-Z]/.test(password) && /[a-z]/.test(password) && /\d/.test(password) &&
+            /[!@#$%^&*(),.?":{}|<>]/.test(password) && password.length >= 8 && password === confirmPassword) {
+            // Display success message or perform any desired action
+            document.getElementById('successMessage').innerHTML = "Password is valid!";
         } else {
-            alert("Password must have A-Z, a-z, 0, @, 8digits .");
-        //   alert("Password must have one uppercase, one lowercase, one number, one special character, and minimum 8 characters.");
+            // Display error message
+            document.getElementById('errorMessage').innerHTML = password !== confirmPassword
+                ? 'Passwords do not match.'
+                : 'Password must have A-Z, a-z, 0, @, 8 digits.';
         }
-      }
     }
-  </script>
+</script>
+
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>

@@ -22,4 +22,5 @@ urlpatterns = [
     path('delete_account/',views.delete_account, name='delete_account'),
     path('delete_verify_email/<str:token>/', views.delete_verify_email, name='delete_verify_email'),
     path('check_username',views.check_username,name="check_username"),
+    path('check_email',views.check_email,name="check_email"),
 ]
