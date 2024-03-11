@@ -395,7 +395,7 @@ body {
 			<!-- SIGN UP -->
 			<div class="col align-items-center flex-col sign-up">
 				<div class="form-wrapper align-items-center">
-					<form id="register" method="post" action="{% url 'login:signup' %}" tabindex="502">
+					<form id="register" method="post" action="{% url 'login:signup' %}" tabindex="502" onsubmit="return validateLoginForm()">
 					{% csrf_token %}
 					<div class="form sign-up">
 						<div class="input-group">
@@ -636,7 +636,7 @@ setTimeout(() => {
 </script>
 
 
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<!-- email already taken -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('email').addEventListener('input', function() {
@@ -668,8 +668,9 @@ setTimeout(() => {
         });
     });
 </script>
-<!-- password matching and strength -->
 
+
+<!-- password matching and strength -->
 <script>
     function checkPasswordStrength() {
         var password = document.getElementById('password').value;
@@ -710,6 +711,28 @@ setTimeout(() => {
                 ? 'Passwords do not match.'
                 : 'Password must have A-Z, a-z, 0, @, 8 digits.';
         }
+    }
+</script>
+
+
+
+<script>
+    function validateLoginForm() {
+        // Add your additional validation logic here
+        var username = document.getElementsByName('username')[0].value;
+        var email = document.getElementsByName('email')[0].value;
+        var password = document.getElementsByName('password')[0].value;
+
+        // Check if username, email, and password are not empty
+        if (username.trim() === '' || email.trim() === '' || password.trim() === '') {
+            // If any of the fields is empty, return false to prevent form submission
+            return false;
+        }
+
+        // Add more conditions if needed for each field
+
+        // If all conditions are met, return true to allow form submission
+        return true;
     }
 </script>
 

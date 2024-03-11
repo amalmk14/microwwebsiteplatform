@@ -608,30 +608,6 @@ def verify_email(request, token):
 
 from django.http import HttpResponse
 
-# def check_username(request):
-#     username = request.POST.get('username')
-    
-#     if Profile().objects.filter(name=username).exists():
-#         return HttpResponse('<div style="color:red">Username already exists</div>')
-#     else:
-#         return HttpResponse('<div style="color:green">Username is available</div>')
-
-# import json
-# from django.http import JsonResponse
-
-# def check_username(request):
-#     try:
-#         data = json.loads(request.body.decode('utf-8'))
-#         username = data.get('username')
-
-#         if Profile.objects.filter(name=username).exists():
-#             return JsonResponse({'message': 'Username already exists'}, status=400)
-#         else:
-#             return JsonResponse({'message': 'Username is available'})
-
-#     except json.JSONDecodeError:
-#         return JsonResponse({'error': 'Invalid JSON payload'}, status=400)
-
 
 from django.http import JsonResponse
 from django.contrib.auth.models import User
