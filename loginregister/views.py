@@ -608,14 +608,13 @@ def verify_email(request, token):
 
 from django.http import HttpResponse
 
-
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 
 def check_username(request):
     username = request.GET.get('username')
 
-    if User.objects.filter(username=username).exists():
+    if Profile.objects.filter(name=username,is_verified=True).exists():
         return JsonResponse({'available': False, 'message': 'Username already exists'})
     else:
         return JsonResponse({'available': True, 'message': 'Username is available'})
@@ -624,9 +623,16 @@ def check_username(request):
 def check_email(request):
     email = request.GET.get('email')
 
-    if Profile.objects.filter(email=email).exists():
+    if Profile.objects.filter(email=email,is_verified=True).exists():
         return JsonResponse({'available': False, 'message': 'Email already exists'})
     else:
         return JsonResponse({'available': True, 'message': 'Email is available'})
 
 
+def check_currentpassword(request):
+    password = request.GET.get('password')
+
+    if Profile.objects.filter(password=password,is_verified=True).exists():
+        return JsonResponse({'available': False, 'message': 'Invalid oldpassword'})
+    else:
+        return JsonResponse({'available': True, 'message': 'Email is available'})
