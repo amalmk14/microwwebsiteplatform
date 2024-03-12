@@ -395,7 +395,7 @@ body {
 			<!-- SIGN UP -->
 			<div class="col align-items-center flex-col sign-up">
 				<div class="form-wrapper align-items-center">
-					<form id="register" method="post" action="{% url 'login:signup' %}" tabindex="502" onsubmit="return validateLoginForm()">
+					<form id="register" method="post" action="{% url 'login:signup' %}" tabindex="502" onsubmit="return validateSignupForm()">
 					{% csrf_token %}
 					<div class="form sign-up">
 						<div class="input-group">
@@ -451,7 +451,7 @@ body {
 			<!-- SIGN IN -->
 			<div class="col align-items-center flex-col sign-in">
 				<div class="form-wrapper align-items-center">
-					<form id="login" tabindex="500" method="post" action="{% url 'login:signin' %}" onsubmit="return validateLoginForm()">
+					<form id="login" tabindex="500" method="post" action="{% url 'login:signin' %}">
 						{% csrf_token %}
 					<div class="form sign-in">
 						<div class="input-group">
@@ -715,9 +715,30 @@ setTimeout(() => {
 </script>
 
 
-
+<!-- 
 <script>
-    function validateLoginForm() {
+    function validateSignupForm() {
+        // Add your additional validation logic here
+        var username = document.getElementById('username').value;
+        var email = document.getElementById('email').value;
+        var password = document.getElementById('password').value;
+        var confirmPassword = document.getElementById('confirmPassword').value;
+
+        // Check if username, email, password, and confirmPassword are not empty
+        if (username.trim() === '' || email.trim() === '' || password.trim() === '' || confirmPassword.trim() === '') {
+            // If any of the fields is empty, return false to prevent form submission
+            return false;
+        }
+
+        // Add more conditions if needed for each field
+
+        // If all conditions are met, return true to allow form submission
+        return true;
+    }
+</script> -->
+<!-- 
+<script>
+    function validateSignupForm() {
         // Add your additional validation logic here
         var username = document.getElementsByName('username')[0].value;
         var email = document.getElementsByName('email')[0].value;
@@ -734,7 +755,51 @@ setTimeout(() => {
         // If all conditions are met, return true to allow form submission
         return true;
     }
+</script> -->
+
+<script>
+    function validateSignupForm() {
+        var username = document.getElementById('username').value.trim();
+        var email = document.getElementById('email').value.trim();
+        var password = document.getElementById('password').value.trim();
+        var confirmPassword = document.getElementById('confirmPassword').value.trim();
+
+        // Check if username, email, and password are not empty
+        if (username === '' || email === '' || password === '' || confirmPassword === '') {
+            // If any of the fields is empty, return false to prevent form submission
+            return false;
+        }
+
+        // Check if username is already taken
+        var usernameErrorMessage = document.getElementById('username-check').innerHTML;
+        if (usernameErrorMessage && usernameErrorMessage.includes('already exists')) {
+            return false;
+        }
+
+        // Check if email is already taken
+        var emailErrorMessage = document.getElementById('email-check').innerHTML;
+        if (emailErrorMessage && emailErrorMessage.includes('already exists')) {
+            return false;
+        }
+
+        // Check if password meets strength criteria
+        var strengthErrorMessage = document.getElementById('strengthText').innerHTML;
+        if (strengthErrorMessage && strengthErrorMessage !== '') {
+            return false;
+        }
+
+        // Check if password and confirm password match
+        var matchErrorMessage = document.getElementById('matchText').innerHTML;
+        if (matchErrorMessage && matchErrorMessage !== '') {
+            return false;
+        }
+
+        // If all conditions are met, return true to allow form submission
+        return true;
+    }
 </script>
+
+
 
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>

@@ -327,7 +327,7 @@ def profile_password(request):
         profile_object = Profile.objects.get(name=name)
 
     if request.method == 'POST':
-        password = request.POST['password']
+        password = request.POST['currentPassword']
         new_password1 = request.POST['new_password1']
         new_password2 = request.POST['new_password2']
 
@@ -635,4 +635,4 @@ def check_currentpassword(request):
     if Profile.objects.filter(password=password,is_verified=True).exists():
         return JsonResponse({'available': False, 'message': 'Invalid oldpassword'})
     else:
-        return JsonResponse({'available': True, 'message': 'Email is available'})
+        return JsonResponse({'available': True, 'message': 'Old password matched'})

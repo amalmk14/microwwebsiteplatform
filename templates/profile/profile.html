@@ -70,6 +70,9 @@ body{
     margin-right: 1rem;
 }
     </style>
+    <!-- country code -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 </head>
 <body>
 <div class="container-xl px-4 mt-4">
@@ -138,8 +141,9 @@ body{
                             </div>
                             <div class="row gx-3 mb-3">
                                 <div class="col-md-6">
-                                    <label class="small mb-1" for="inputPhone">Phone</label>
-                                    <input class="form-control" id="inputPhone" type="number" placeholder="" value="{{phone}}" name="phone">
+                                    <label class="small mb-1" for="inputPhone">Phone</label><br>
+                                    <!-- <input class="form-control" id="inputPhone" type="number" placeholder="" value="{{phone}}" name="phone"> -->
+                                    <input class="form-control" id="inputPhone" type="tel" placeholder="enter phone number" value="{{phone}}" name="phone">
                                 </div>
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="inputCountry">Country</label>
@@ -173,27 +177,24 @@ body{
                         </div>
                     </div>
                     <div class="card-body">
-                        <form method="post" action="{% url 'login:profile_password' %}">
+                        <form method="post" action="{% url 'login:profile_password' %}" id="passwordForm">
                             {% csrf_token %}
-                            <!-- Form Group (current password)-->
                             <div class="mb-3">
                                 <label class="small mb-1" for="currentPassword">Current Password</label>
-                                <input class="form-control" id="currentPassword" type="password" placeholder="Enter current password" name="password">
+                                <input class="form-control" id="currentPassword" type="password" placeholder="Enter current password" name="currentPassword">
+                                <div id="username-check" style="color: red;"></div>
                             </div>
-                            <!-- Form Group (new password)-->
                             <div class="mb-3">
                                 <label class="small mb-1" for="newPassword">New Password</label>
                                 <input class="form-control" id="newPassword" type="password" placeholder="Enter new password" name="new_password1">
+                                <p id="strengthText"></p>
                             </div>
-                            <!-- Form Group (confirm password)-->
                             <div class="mb-3">
                                 <label class="small mb-1" for="confirmPassword">Confirm Password</label>
                                 <input class="form-control" id="confirmPassword" type="password" placeholder="Confirm new password" name="new_password2">
+                                <p id="matchText"></p>
                             </div>
-                            <button class="btn" type="submit" style="background-color:#4a546a;color:white;">Save</button>
-                            {% for msg in messages %}
-                            {{msg}}
-                            {% endfor %}
+                            <button class="btn" type="submit" id="registerButton" style="background-color:#4a546a;color:white;">Save</button>
                         </form>
                     </div>
                 </div>
@@ -243,10 +244,113 @@ body{
   </div>
 </div>
 
+<script>
+    const phoneInputField = document.querySelector("#inputPhone");
+    const phoneInput = window.intlTelInput(phoneInputField, {
+      utilsScript:
+        "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+</script>
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
-<script type="text/javascript">
-	
+<script type="text/javascript"></script>
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Function to check current password
+        function checkCurrentPassword() {
+            var currentPassword = $('#currentPassword').val();
+            var errorMessage = $('#username-check');
+
+            if (currentPassword) {
+                $.ajax({
+                    type: "GET",
+                    url: "{% url 'login:check_currentpassword' %}",
+                    data: {'password': currentPassword},
+                    dataType: 'json',
+                    success: function(data) {
+                        if (!data.available) {
+                            errorMessage.text('Valid old password');
+                            errorMessage.css('color', 'green');
+                        } else {
+                            errorMessage.text('Invalid old password');
+                            errorMessage.css('color', 'red');
+                        }
+                        updateSubmitButtonState();
+                    }
+                });
+            } else {
+                errorMessage.text('');
+                updateSubmitButtonState();
+            }
+        }
+
+        // Function to check password strength
+        function checkPasswordStrength() {
+            var password = $('#newPassword').val();
+            var strengthText = $('#strengthText');
+
+            var missingCriteria = [];
+            if (!/[A-Z]/.test(password)) missingCriteria.push('A-Z');
+            if (!/[a-z]/.test(password)) missingCriteria.push('a-z');
+            if (!/\d/.test(password)) missingCriteria.push('0');
+            if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) missingCriteria.push('@');
+            if (password.length < 8) missingCriteria.push('8 digits');
+
+            strengthText.text(missingCriteria.length > 0 ? 'Password must have: ' + missingCriteria.join(', ') : '');
+            updateSubmitButtonState();
+        }
+
+        // Function to check password match
+        function checkPasswordMatch() {
+            var password = $('#newPassword').val();
+            var confirmPassword = $('#confirmPassword').val();
+            var matchText = $('#matchText');
+
+            matchText.text(password !== confirmPassword ? 'Passwords do not match' : '');
+            updateSubmitButtonState();
+        }
+
+        // Function to update submit button state
+        function updateSubmitButtonState() {
+            var errorMessage = $('#username-check');
+            var strengthText = $('#strengthText');
+            var matchText = $('#matchText');
+            var registerButton = $('#registerButton');
+            var currentPassword = $('#currentPassword').val();
+            var newPassword = $('#newPassword').val();
+            var confirmPassword = $('#confirmPassword').val();
+
+            // Enable submit button only if there are no error messages and all input boxes are not empty
+            if (
+                errorMessage.text() === 'Valid old password' &&
+                strengthText.text() === '' &&
+                matchText.text() === '' &&
+                currentPassword !== '' &&
+                newPassword !== '' &&
+                confirmPassword !== ''
+            ) {
+                registerButton.prop('disabled', false);
+            } else {
+                registerButton.prop('disabled', true);
+            }
+        }
+
+        // Attach event listeners
+        $('#currentPassword').on('input', checkCurrentPassword);
+        $('#newPassword').on('input', checkPasswordStrength);
+        $('#confirmPassword').on('input', checkPasswordMatch);
+
+        // Disable submit button initially
+        updateSubmitButtonState();
+    });
 </script>
+<script>
+    
+</script>
+
 </body>
 </html>
