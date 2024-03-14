@@ -492,7 +492,7 @@ button.warning-toast {
 
       <!-- <div class="logo"> -->
         <!-- <h1><a href="/">GCloud</a></h1> -->
-        <img src="{% static 'logo/gcloudlogo2.png' %}" style="width: 130px; height: 40px;">
+        <img src="{% static 'logo/gcloudlogo2.png' %}" style="width: 130px; height: 30px;">
 
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="admin-index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
@@ -730,29 +730,221 @@ button.warning-toast {
         </div>
 
 
-          <!-- <ul id="" class="d-flex justify-content-end" data-aos="fade-up">
+          <ul id="" class="d-flex justify-content-end" data-aos="fade-up">
           <strong><li><a href="{% url 'mainapp:morenormal' %}" class="active">View More..</a></li></strong>
-        </ul> -->
+        </ul>
+        
 
-        <div class="row portfolio-container" data-aos="fade-up" >
-  <!-- {% csrf_token %} -->
-          {% for n in normal %}
-          <div class="col-lg-4 col-md-6  portfolio-item filter-web card1">
-            <div class="portfolio-img"><img src="{{n.temp_img.url}}" class="img-fluid" alt=""></div>
-            <div class="portfolio-info">
-<!--              <h4>Web 9</h4>-->
-<!--              <p>Web</p>-->
-<!--              <input style="display:none" type="text" value="{{i.id}}" name="normal_id">-->
-              <a type="submit" href="{% url 'mainapp:temp_view' n.id %}" class="preview-button btn btn-primary"><i class='fas fa-eye' style="margin-right:7px;"></i>Preview</a>
-<!--              <a href="assets/img/portfolio/portfolio-2.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 3"><i class="bx bx-plus"></i></a>-->
-              <!-- <span><a href="" class="details-link" title="More Details"><i class="bx "></i>$39</a></span> -->
+
+        <div class="row" id="deluxe">
+            <!-- <style>
+            .category-list {
+                list-style: none;
+                padding: 0;
+            }
+            .category-list li {
+                margin-bottom: 10px;
+            }
+            .category-list li a {
+                font-size: 20px;
+                text-decoration: none;
+                color: #000;
+            }
+            .category-list li.active {
+                font-weight: bold;
+            }
+            </style>
+            <div class="col-md-4">
+              <label for="categoryDropdown" style="margin-bottom: 15px;font-size: 25px;">Category</label>
+              <ul id="categoryDropdown" class="category-list">
+                  <li {% if not selected_category %}class="active"{% endif %}>
+                      <a href="#" onclick="submitForm('')">All</a>
+                  </li>
+                  {% for category in template_categories %}
+                      <li {% if selected_category == category %}class="active"{% endif %}>
+                          <a href="#" onclick="submitForm('{{ category }}')">{{ category }}</a>
+                      </li>
+                  {% endfor %}
+              </ul>
+              <form id="categoryForm" method="get" style="display: none;">
+                  <input type="hidden" name="category" value="">
+              </form>
             </div>
+
+            <script>
+              function submitForm(category) {
+                  var form = document.getElementById('categoryForm');
+                  form.querySelector('input[name="category"]').value = category;
+                  form.submit();
+              }
+            </script>
+
           </div>
-          {% endfor %}
+          <div class="col-md-8">
+              <div class="row portfolio-container" data-aos="fade-up">
+                  {% for n in normal %}
+                      <div class="col-lg-6 col-md-6 portfolio-item filter-web card1">
+                          <div class="portfolio-img"><img src="{{n.temp_img.url}}" class="img-fluid" alt=""></div>
+                          <div class="portfolio-info">
+                              <a type="submit" href="{% url 'mainapp:temp_view' n.id %}" class="preview-button btn btn-primary">
+                                  <i class='fas fa-eye' style="margin-right:7px;"></i>Preview
+                              </a>
+                          </div>
+                      </div>
+                  {% endfor %}
+              </div>
+          </div>
+      </div> -->
+
+      <style>
+        .category-list {
+            list-style: none;
+            padding: 0;
+        }
+        .category-list li {
+            margin-bottom: 10px;
+        }
+        .category-list li b {
+            font-size: 20px;
+            text-decoration: none;
+            color: #000;
+        }
+        .category-list li.active {
+            font-weight: bold;
+        }
+        </style>
+
+        <div class="col-md-3">
+          <label for="categoryDropdown" style="margin-bottom: 15px;font-size: 25px;">Category</label>
+          <ul id="categoryDropdown" class="category-list">
+              <li class="button all active">
+                  <button style="border: 0px;background-color: white;">All</button>
+              </li>
+              {% for category in template_categories %}
+                  <li class="button {{ category|lower }}">
+                      <button style="border: 0px;background-color: white;">{{ category }}</button>
+                  </li>
+              {% endfor %}
+          </ul>
+      </div>  
+
+
+<div class="col-md-9">
+  <div class="row portfolio-" data-aos="fade-up">
+    {% for n in normal %}
+    <div class="col-lg-4 col-md-4 portfolio-item {{ n.category|lower }} card1  portfolio-container">
+      <div class="portfolio-img">
+        <a href="{% url 'mainapp:temp_view' n.id %}">
+        <img src="{{ n.temp_img.url }}" class="img-fluid" alt=""></a></div>
+      
+      <div class="info" style="background: rgba(0, 0, 0, 0.2);">
+        <a href="{% url 'mainapp:temp_view' n.id %}" class="preview-button btn btn-primary"><i class='fas fa-eye' style="margin-right:7px;"></i>Preview</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+  // $(document).ready(function() {
+  //   $('.button').click(function() {
+  //     var category = $(this).attr('class').split(' ')[1];
+  //     $('.portfolio-item').hide();
+  //     if (category === 'all') {
+  //       $('.portfolio-item').show();
+  //     } else {
+  //       $('.portfolio-item.' + category).show();
+  //     }
+  //     $('.button').removeClass('active');
+  //     $(this).addClass('active');
+  //   });
+  // });
+</script>
+<script>
+  $(document).ready(function() {
+      // Hide all portfolio items
+      $('.portfolio-item').hide();
+      
+      // Show only the first 5 portfolio items
+      $('.portfolio-item:lt(5)').show();
+  
+      $('.button').click(function() {
+          var category = $(this).attr('class').split(' ')[1];
+          $('.portfolio-item').hide();
+          if (category === 'all') {
+              // Show only the first 5 items when 'All' is selected
+              $('.portfolio-item:lt(5)').show();
+          } else {
+              // Show only the first 5 items of the selected category
+              $('.portfolio-item.' + category + ':lt(5)').show();
+          }
+          $('.button').removeClass('active');
+          $(this).addClass('active');
+      });
+  });
+  </script>
+
+
+
+      
+      <!-- <div class="col-md-4">
+        <label for="categoryDropdown">Select Category:</label>
+        <ul id="categoryDropdown" class="category-list">
+            <li class="active">
+                <a href="#deluxe" onclick="filterCategory('')">All</a>
+            </li>
+            {% for category in template_categories %}
+                <li>
+                    <a href="#deluxe" onclick="filterCategory('{{ category }}')">{{ category }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    
+    <div class="col-md-8">
+        <div class="row portfolio-container" data-aos="fade-up">
+            {% for n in normal %}
+            <div class="col-lg-4 col-md-6 portfolio-item filter-{{ n.category|lower }} card1">
+                <div class="portfolio-img"><img src="{{ n.temp_img.url }}" class="img-fluid" alt=""></div>
+                <div class="portfolio-info">
+                    <a href="{% url 'mainapp:temp_view' n.id %}" class="preview-button btn btn-primary"><i class='fas fa-eye' style="margin-right:7px;"></i>Preview</a>
+                </div>
+            </div>
+            {% endfor %}
         </div>
+    </div>
+
+    <script>
+      function filterCategory(category) {
+          // Add 'active' class to the selected category and remove it from others
+          var categoryList = document.querySelectorAll('.category-list li');
+          categoryList.forEach(function (item) {
+              item.classList.remove('active');
+          });
+  
+          // Set 'active' class to the selected category
+          var selectedCategory = document.querySelector('.category-list li a[href="#deluxe"][onclick="filterCategory(\'' + category + '\')"]');
+          selectedCategory.parentNode.classList.add('active');
+  
+          // Filter the portfolio items based on the selected category
+          var portfolioContainer = document.querySelector('.portfolio-container');
+          var portfolioItems = document.querySelectorAll('.portfolio-item');
+          portfolioItems.forEach(function (item) {
+              if (category === '' || item.classList.contains('filter-' + category.toLowerCase())) {
+                  portfolioContainer.prepend(item); // Move the item to the top
+                  item.style.display = 'block';
+                  
+              } else {
+                  item.style.display = 'none';
+              }
+          });
+      }
+  </script> -->
+    
 
       </div>
-    </section><!-- End Portfolio Section -->
+    </div>
+  </section><!-- End Portfolio Section -->
 
 
 

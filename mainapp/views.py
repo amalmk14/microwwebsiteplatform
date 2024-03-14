@@ -19,28 +19,49 @@ from random import shuffle
 
 def home(request):
     name = request.session.get('username')
-    normal_type = TemplatesType.objects.get(name='normal')
-    normal = Templates.objects.filter(temp_type=normal_type)
+
+
+    template_categories = Templates.objects.filter(temp_type__name='normal').values_list('category', flat=True).distinct()
+     # Get all template categories
+    # template_categories = Templates.objects.values_list('category', flat=True).distinct()
+
+    # Filter templates based on selected category or get all templates
+    selected_category = request.GET.get('category')
+    if selected_category:
+        normal = Templates.objects.filter(temp_type__name='normal', category=selected_category)
+    else:
+        normal_type = TemplatesType.objects.get(name='normal')
+        normal = Templates.objects.filter(temp_type=normal_type)
 
     # Shuffle the normal templates
     normal_list = list(normal)
     shuffle(normal_list)
 
     # Take the first 6 items
-    random_normal = normal_list[:6]
-    paginator = Paginator(random_normal, 6)
 
-    # paginator = Paginator(normal_list, 6)
-    # paginator = Paginator(normal, 6)
-    try:
-        page = int(request.GET.get('page', "1"))
-    except:
-        page = 1
-    try:
-        normal = paginator.page(page)
-    except (EmptyPage, InvalidPage):
-        normal = paginator.page(paginator.num_pages)
+    # # Shuffle the normal templates
+    # normal_list = list(normal)
+    # shuffle(normal_list)
 
+    # # Take the first 6 items
+    # random_normal = normal_list[:6]
+    # paginator = Paginator(random_normal, 6)
+
+    # # paginator = Paginator(normal_list, 6)
+    # # paginator = Paginator(normal, 6)
+    
+    # try:
+    #     page = int(request.GET.get('page', "1"))
+    # except:
+    #     page = 1
+
+    # try:
+    #     normal = paginator.page(page)
+    # except (EmptyPage, InvalidPage):
+    #     normal = paginator.page(paginator.num_pages)
+    # normal_type = TemplatesType.objects.get(name='normal')
+    # normal = Templates.objects.filter(temp_type=normal_type)
+    
     premium_type = TemplatesType.objects.get(name='premium')
     premiums = Templates.objects.all().filter(temp_type=premium_type)
 
@@ -60,7 +81,7 @@ def home(request):
     try:
         premiums = paginators.page(pages)
     except (EmptyPage, InvalidPage):
-        premiums = paginators.page(paginator.num_pages)
+        premiums = paginators.page(paginators.num_pages)
 
     # Check if the show_modal key is not present in the session
     show_modal = request.session.get('show_modal', True)
@@ -75,7 +96,32 @@ def home(request):
         Contact(name=name,email=email,subject=subject,message=message,date=timezone.now()).save()
         messages.info(request,"Message Sent Successfully")
         return redirect('mainapp:home')
-    return render(request,'home.html',{'normal':normal,'premiums':premiums,'name':name,'show_modal': show_modal})
+    return render(request,'home.html',{'normal':normal_list,'premiums':premiums,'name':name,'show_modal': show_modal,'template_categories': template_categories,'selected_category': selected_category})
+
+
+from django.http import JsonResponse
+from django.urls import reverse
+from .models import Templates, TemplatesType
+
+def get_templates_by_category(request):
+    selected_category = request.GET.get('category')
+    
+    if selected_category:
+        templates = Templates.objects.filter(category=selected_category)[:6]
+    else:
+        templates = Templates.objects.all().order_by('?')[:6]
+
+    template_data = []
+    for template in templates:
+        template_data.append({
+            'id': template.id,
+            'name': template.name,
+            'img_url': template.temp_img.url,
+            'preview_url': reverse('mainapp:temp_view', args=[template.id]),
+        })
+
+    return JsonResponse({'templates': template_data})
+
 
 
 def temp_view(request, template_card_id):

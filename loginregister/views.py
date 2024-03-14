@@ -148,8 +148,8 @@ from .models import Profile
 
 def signin(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
+        username = request.POST['logusername']
+        password = request.POST['logpassword']
         users = Profile.objects.filter(name=username, password=password)
         if users.exists():
             user = users.first()
