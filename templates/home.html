@@ -730,10 +730,10 @@ button.warning-toast {
         </div>
 
 
-          <ul id="" class="d-flex justify-content-end" data-aos="fade-up">
+          <!-- <ul id="" class="d-flex justify-content-end" data-aos="fade-up">
           <strong><li><a href="{% url 'mainapp:morenormal' %}" class="active">View More..</a></li></strong>
         </ul>
-        
+         -->
 
 
         <div class="row" id="deluxe">
@@ -842,24 +842,18 @@ button.warning-toast {
       </div>
     </div>
     {% endfor %}
+    <div class="col-lg-4 col-md-4 portfolio-item-link   portfolio-container" style="display: flex;flex-direction: column;align-items: center;justify-content: center;">
+      <div class="portfolio-img">
+        <a href="">
+        <!-- <img src="{% static 'dumm/black.jpg' %}" class="img-fluid" alt=""></a></div> -->
+      
+      <div class="info" style="background: rgba(0, 0, 0, 0.2);">
+        <a href="{% url 'mainapp:morenormal' %}" class="preview-button btn btn-primary">View More...</a>
+      </div>
+    </div>
   </div>
 </div>
-
-<script>
-  // $(document).ready(function() {
-  //   $('.button').click(function() {
-  //     var category = $(this).attr('class').split(' ')[1];
-  //     $('.portfolio-item').hide();
-  //     if (category === 'all') {
-  //       $('.portfolio-item').show();
-  //     } else {
-  //       $('.portfolio-item.' + category).show();
-  //     }
-  //     $('.button').removeClass('active');
-  //     $(this).addClass('active');
-  //   });
-  // });
-</script>
+<!-- 
 <script>
   $(document).ready(function() {
       // Hide all portfolio items
@@ -882,8 +876,43 @@ button.warning-toast {
           $(this).addClass('active');
       });
   });
-  </script>
+  </script> -->
 
+
+  
+    <script>
+      $(document).ready(function() {
+          // Hide all portfolio items
+          $('.portfolio-item').hide();
+      
+          // Show only the first 5 portfolio items
+          $('.portfolio-item:lt(5)').show();
+      
+          // Show the portfolio item links initially
+          // $('.portfolio-item-link').show();
+      
+          $('.button').click(function() {
+              var category = $(this).attr('class').split(' ')[1];
+              $('.portfolio-item').hide();
+              $('.portfolio-item-link').show(); // Show all portfolio item links initially
+      
+              if (category === 'all') {
+                  // Show only the first 5 items when 'All' is selected
+                  $('.portfolio-item:lt(5)').show();
+              } else {
+                  // Show only the first 5 items of the selected category
+                  $('.portfolio-item.' + category + ':lt(5)').show();
+                  $('.portfolio-item-link').hide();
+                  // Hide the portfolio item links for the selected category
+                  // $('.portfolio-item.' + category + ' .portfolio-item-link').hide();
+              }
+      
+              $('.button').removeClass('active');
+              $(this).addClass('active');
+          });
+      });
+      </script>
+      
 
 
       
