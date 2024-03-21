@@ -20,10 +20,7 @@ from random import shuffle
 def home(request):
     name = request.session.get('username')
 
-
     template_categories = Templates.objects.filter(temp_type__name='normal').values_list('category', flat=True).distinct()
-     # Get all template categories
-    # template_categories = Templates.objects.values_list('category', flat=True).distinct()
 
     # Filter templates based on selected category or get all templates
     selected_category = request.GET.get('category')
@@ -36,31 +33,6 @@ def home(request):
     # Shuffle the normal templates
     normal_list = list(normal)
     shuffle(normal_list)
-
-    # Take the first 6 items
-
-    # # Shuffle the normal templates
-    # normal_list = list(normal)
-    # shuffle(normal_list)
-
-    # # Take the first 6 items
-    # random_normal = normal_list[:6]
-    # paginator = Paginator(random_normal, 6)
-
-    # # paginator = Paginator(normal_list, 6)
-    # # paginator = Paginator(normal, 6)
-    
-    # try:
-    #     page = int(request.GET.get('page', "1"))
-    # except:
-    #     page = 1
-
-    # try:
-    #     normal = paginator.page(page)
-    # except (EmptyPage, InvalidPage):
-    #     normal = paginator.page(paginator.num_pages)
-    # normal_type = TemplatesType.objects.get(name='normal')
-    # normal = Templates.objects.filter(temp_type=normal_type)
     
     premium_type = TemplatesType.objects.get(name='premium')
     premiums = Templates.objects.all().filter(temp_type=premium_type)
@@ -155,47 +127,44 @@ def temp_view(request, template_card_id):
         return HttpResponse("Template not found",status=404)
 
 
-
 def morePremium(request):
-    premium_type = TemplatesType.objects.get(name='premium')
-    premium = Templates.objects.all().filter(temp_type=premium_type)
-#
-#     # paginator = Paginator(premium, 9)
-#     # try:
-#     #     page = int(request.GET.get('page', "1"))
-#     # except ValueError:
-#     #     page = 1
-#     # try:
-#     #     premium = paginator.page(page)
-#     # except (EmptyPage, InvalidPage):
-#     #     premium = paginator.page(paginator.num_pages)
-#
-    search = None
-    query = None
-    if 'q' in request.GET:
-        query = request.GET.get('q')
-        search = premium.filter(Q(name__contains=query) | Q(category__contains=query))
-    return render(request, "morepremium.html", {'premium': premium,'search':search,'query':query})
+    # Retrieve the template categories for the dropdown
+    template_categories = Templates.objects.filter(temp_type__name='premium').values_list('category', flat=True).distinct()
+
+    # Filter templates based on selected category or get all templates
+    selected_category = request.GET.get('category')
+    if selected_category:
+        premium = Templates.objects.filter(temp_type__name='premium', category=selected_category)
+    else:
+        premium_type = TemplatesType.objects.get(name='premium')
+        premium = Templates.objects.filter(temp_type=premium_type)
+
+    # Shuffle the normal templates
+    premium_list = list(premium)
+    shuffle(premium_list)
+
+    # Render the template with the context data
+    return render(request, 'morepremium.html', {'premium': premium_list, 'template_categories': template_categories})
+
 
 def moreNormal(request):
-    normal_type = TemplatesType.objects.get(name='normal')
-    normal = Templates.objects.filter(temp_type=normal_type)
-    # paginator = Paginator(normal, 6)
-    # try:
-    #     page = int(request.GET.get('page', "1"))
-    # except:
-    #     page = 1
-    # try:
-    #     normal = paginator.page(page)
-    # except (EmptyPage, InvalidPage):
-    #     normal = paginator.page(paginator.num_pages)
+    # Retrieve the template categories for the dropdown
+    template_categories = Templates.objects.filter(temp_type__name='normal').values_list('category', flat=True).distinct()
 
-    search = None
-    query = None
-    if 'q' in request.GET:
-        query = request.GET.get('q')
-        search = normal.filter(Q(name__contains=query) | Q(category__contains=query))
-    return render(request, "morenormal.html", {'normal':normal,'query':query,'search':search})
+    # Filter templates based on selected category or get all templates
+    selected_category = request.GET.get('category')
+    if selected_category:
+        normal = Templates.objects.filter(temp_type__name='normal', category=selected_category)
+    else:
+        normal_type = TemplatesType.objects.get(name='normal')
+        normal = Templates.objects.filter(temp_type=normal_type)
+
+    # Shuffle the normal templates
+    normal_list = list(normal)
+    shuffle(normal_list)
+
+    # Render the template with the context data
+    return render(request, 'morenormal.html', {'normal': normal_list, 'template_categories': template_categories})
 
 
 # def contact_us(request):

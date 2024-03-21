@@ -330,7 +330,9 @@ body {
         z-index: 0;
         transform: none;
         right: 0;
+        
     }
+    
 
     /* .con.sign-in .col.sign-up {
         transform: translateY(100%);
@@ -406,7 +408,7 @@ body {
 			<!-- SIGN UP -->
 			<div class="col align-items-center flex-col sign-up">
 				<div class="form-wrapper align-items-center">
-					<form id="register" method="post" action="{% url 'login:signup' %}" tabindex="502" onsubmit="return validateSignupForm()">
+					<form id="register" method="post" style="margin-bottom: 30%;" action="{% url 'login:signup' %}" tabindex="502" onsubmit="return validateSignupForm()">
 					{% csrf_token %}
 					<div class="form sign-up">
 						<div class="input-group">
@@ -463,7 +465,7 @@ body {
 			<!-- SIGN IN -->
 			<div class="col align-items-center flex-col sign-in">
 				<div class="form-wrapper align-items-center">
-					<form id="login" tabindex="500" method="post" action="{% url 'login:signin' %}">
+					<form id="login" tabindex="500" method="post" style="margin-bottom: 30%;" action="{% url 'login:signin' %}">
 						{% csrf_token %}
 					<div class="form sign-in">
 						<div class="input-group">

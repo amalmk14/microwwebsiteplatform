@@ -365,9 +365,7 @@ button.warning-toast {
     /*** vesitable End ***/
 </style>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
  
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
  
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -377,8 +375,8 @@ button.warning-toast {
 <!-- fontawsome -->
 <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+
 <style>
 
 #hero {
@@ -484,6 +482,9 @@ button.warning-toast {
     text-decoration: none;
   }
 </style>
+
+
+
 <body>
 
   <!-- ======= Header ======= -->
@@ -525,11 +526,6 @@ button.warning-toast {
     <li><a class="dropdown-item" href="{% url 'login:logout' %}">Logout</a></li>
   </ul>
 </div>
-
-
-
-
-
 {% else %}
     <li>
         <a class="logout-btn veen1" href="{% url 'login:signin' %}" style="text-decoration: none;">Login</a>
@@ -670,7 +666,13 @@ button.warning-toast {
           <!-- <h2>Services</h2> -->
           <p>What we do offer</p>
         </div>
-
+<style>
+   .services .icon {
+    position: absolute;
+    left: 0px;
+    top: calc(50% - 30px);
+  }
+</style>
         <div class="row">
           <div class="col-lg-4 col-md-6">
             <div class="icon-box" data-aos="zoom-in-left">
@@ -709,14 +711,14 @@ button.warning-toast {
           </div>
           <div class="col-lg-4 col-md-6 mt-5">
             <div class="icon-box" data-aos="zoom-in-left" data-aos-delay="500">
-              <div class="icon"><i class="bi bi-clock" style="color: #4680ff;"></i></div>
+              <div class="icon" ><i class="bi bi-clock" style="color: #4680ff;"></i></div>
               <h4 class="title"><a href="">Eiusmod Tempor</a></h4>
               <p class="description">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
             </div>
           </div>
         </div>
       </div>
-    </section><!-- End Services Section -->
+    </section><!-- End Services Section --> 
 
 
   <!-- <main id="main"> -->
@@ -729,74 +731,9 @@ button.warning-toast {
           <p>Deluxe Templates</p>
         </div>
 
-
-          <!-- <ul id="" class="d-flex justify-content-end" data-aos="fade-up">
-          <strong><li><a href="{% url 'mainapp:morenormal' %}" class="active">View More..</a></li></strong>
-        </ul>
-         -->
-
-
         <div class="row" id="deluxe">
-            <!-- <style>
-            .category-list {
-                list-style: none;
-                padding: 0;
-            }
-            .category-list li {
-                margin-bottom: 10px;
-            }
-            .category-list li a {
-                font-size: 20px;
-                text-decoration: none;
-                color: #000;
-            }
-            .category-list li.active {
-                font-weight: bold;
-            }
-            </style>
-            <div class="col-md-4">
-              <label for="categoryDropdown" style="margin-bottom: 15px;font-size: 25px;">Category</label>
-              <ul id="categoryDropdown" class="category-list">
-                  <li {% if not selected_category %}class="active"{% endif %}>
-                      <a href="#" onclick="submitForm('')">All</a>
-                  </li>
-                  {% for category in template_categories %}
-                      <li {% if selected_category == category %}class="active"{% endif %}>
-                          <a href="#" onclick="submitForm('{{ category }}')">{{ category }}</a>
-                      </li>
-                  {% endfor %}
-              </ul>
-              <form id="categoryForm" method="get" style="display: none;">
-                  <input type="hidden" name="category" value="">
-              </form>
-            </div>
-
-            <script>
-              function submitForm(category) {
-                  var form = document.getElementById('categoryForm');
-                  form.querySelector('input[name="category"]').value = category;
-                  form.submit();
-              }
-            </script>
-
-          </div>
-          <div class="col-md-8">
-              <div class="row portfolio-container" data-aos="fade-up">
-                  {% for n in normal %}
-                      <div class="col-lg-6 col-md-6 portfolio-item filter-web card1">
-                          <div class="portfolio-img"><img src="{{n.temp_img.url}}" class="img-fluid" alt=""></div>
-                          <div class="portfolio-info">
-                              <a type="submit" href="{% url 'mainapp:temp_view' n.id %}" class="preview-button btn btn-primary">
-                                  <i class='fas fa-eye' style="margin-right:7px;"></i>Preview
-                              </a>
-                          </div>
-                      </div>
-                  {% endfor %}
-              </div>
-          </div>
-      </div> -->
-
-      <style>
+          
+      <!-- <style>
         .category-list {
             list-style: none;
             padding: 0;
@@ -812,7 +749,92 @@ button.warning-toast {
         .category-list li.active {
             font-weight: bold;
         }
-        </style>
+        </style> -->
+
+        <style>
+          .category-list {
+              list-style: none;
+              padding: 0;
+          }
+      
+          .category-list li {
+              margin-bottom: 10px;
+          }
+      
+          .category-list li b {
+              font-size: 20px;
+              text-decoration: none;
+              color: #000;
+          }
+      
+          .category-list li.active {
+              font-weight: bold;
+          }
+      
+    
+    /* Media Query for Tablet */
+    @media screen and (max-width: 992px) {
+        .col-md-3 {
+            width: 100%;
+            margin-bottom: 20px; /* Adjust as needed */
+        }
+
+        .col-md-9 {
+            width: 100%;
+        }
+    }
+
+    /* Media Query for Mobile */
+    @media screen and (max-width: 768px) {
+        .col-md-3,
+        .col-md-9 {
+            width: 100%;
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        .col-md-3 {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        .col-md-9 {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        .category-list li {
+            display: inline-block; /* Display li elements horizontally */
+            margin-right: 10px; /* Add some space between buttons */
+        }
+
+        .category-list li button {
+            width: auto; /* Allow buttons to adjust width based on content */
+        }
+    }
+
+
+      </style>
+      <style>
+        /* Media Query for Tablet */
+        @media screen and (max-width: 992px) {
+          .portfolio-item {
+            flex-basis: 50%; /* Two items per row */
+          }
+        }
+      
+        /* Media Query for Mobile */
+        @media screen and (max-width: 768px) {
+          .portfolio-item {
+            flex-basis: 100%; /* One item per row */
+          }
+      
+          .portfolio-item-link {
+            margin-top: 20px; /* Adjust spacing for mobile */
+          }
+        }
+      </style>
+      
 
         <div class="col-md-3">
           <label for="categoryDropdown" style="margin-bottom: 15px;font-size: 25px;">Category</label>
@@ -828,58 +850,30 @@ button.warning-toast {
           </ul>
       </div>  
 
-
-<div class="col-md-9">
-  <div class="row portfolio-" data-aos="fade-up">
-    {% for n in normal %}
-    <div class="col-lg-4 col-md-4 portfolio-item {{ n.category|lower }} card1  portfolio-container">
-      <div class="portfolio-img">
-        <a href="{% url 'mainapp:temp_view' n.id %}">
-        <img src="{{ n.temp_img.url }}" class="img-fluid" alt=""></a></div>
-      
-      <div class="info" style="background: rgba(0, 0, 0, 0.2);">
-        <a href="{% url 'mainapp:temp_view' n.id %}" class="preview-button btn btn-primary"><i class='fas fa-eye' style="margin-right:7px;"></i>Preview</a>
+      <div class="col-md-9 col-sm-9">
+        <div class="row portfolio-" data-aos="fade-up">
+          {% for n in normal %}
+          <div class="col-lg-4 col-md-4 portfolio-item {{ n.category|lower }} card1 ">
+            <div class="portfolio-img">
+              <a href="{% url 'mainapp:temp_view' n.id %}">
+              <img src="{{ n.temp_img.url }}" class="img-fluid" alt=""></a></div>
+            
+            <div class="info" style="background: rgba(0, 0, 0, 0.2);">
+              <a href="{% url 'mainapp:temp_view' n.id %}" class="preview-button btn btn-primary"><i class='fas fa-eye' style="margin-right:7px;"></i>Preview</a>
+            </div>
+          </div>
+          {% endfor %}
+          <div class="col-lg-4 col-md-4 portfolio-item-link" style="display: flex;flex-direction: column;align-items: center;justify-content: center;">
+            <div class="portfolio-img">
+              <a href="">
+              <!-- <img src="{% static 'dumm/black.jpg' %}" class="img-fluid" alt=""></a></div> -->
+            <div class="info" style="background: rgba(0, 0, 0, 0.2);">
+              <a href="{% url 'mainapp:morenormal' %}" class="preview-button btn btn-primary">View More...</a>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-    {% endfor %}
-    <div class="col-lg-4 col-md-4 portfolio-item-link   portfolio-container" style="display: flex;flex-direction: column;align-items: center;justify-content: center;">
-      <div class="portfolio-img">
-        <a href="">
-        <!-- <img src="{% static 'dumm/black.jpg' %}" class="img-fluid" alt=""></a></div> -->
-      
-      <div class="info" style="background: rgba(0, 0, 0, 0.2);">
-        <a href="{% url 'mainapp:morenormal' %}" class="preview-button btn btn-primary">View More...</a>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- 
-<script>
-  $(document).ready(function() {
-      // Hide all portfolio items
-      $('.portfolio-item').hide();
-      
-      // Show only the first 5 portfolio items
-      $('.portfolio-item:lt(5)').show();
-  
-      $('.button').click(function() {
-          var category = $(this).attr('class').split(' ')[1];
-          $('.portfolio-item').hide();
-          if (category === 'all') {
-              // Show only the first 5 items when 'All' is selected
-              $('.portfolio-item:lt(5)').show();
-          } else {
-              // Show only the first 5 items of the selected category
-              $('.portfolio-item.' + category + ':lt(5)').show();
-          }
-          $('.button').removeClass('active');
-          $(this).addClass('active');
-      });
-  });
-  </script> -->
-
-
-  
+ 
     <script>
       $(document).ready(function() {
           // Hide all portfolio items
@@ -912,64 +906,6 @@ button.warning-toast {
           });
       });
       </script>
-      
-
-
-      
-      <!-- <div class="col-md-4">
-        <label for="categoryDropdown">Select Category:</label>
-        <ul id="categoryDropdown" class="category-list">
-            <li class="active">
-                <a href="#deluxe" onclick="filterCategory('')">All</a>
-            </li>
-            {% for category in template_categories %}
-                <li>
-                    <a href="#deluxe" onclick="filterCategory('{{ category }}')">{{ category }}</a>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
-    
-    <div class="col-md-8">
-        <div class="row portfolio-container" data-aos="fade-up">
-            {% for n in normal %}
-            <div class="col-lg-4 col-md-6 portfolio-item filter-{{ n.category|lower }} card1">
-                <div class="portfolio-img"><img src="{{ n.temp_img.url }}" class="img-fluid" alt=""></div>
-                <div class="portfolio-info">
-                    <a href="{% url 'mainapp:temp_view' n.id %}" class="preview-button btn btn-primary"><i class='fas fa-eye' style="margin-right:7px;"></i>Preview</a>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-
-    <script>
-      function filterCategory(category) {
-          // Add 'active' class to the selected category and remove it from others
-          var categoryList = document.querySelectorAll('.category-list li');
-          categoryList.forEach(function (item) {
-              item.classList.remove('active');
-          });
-  
-          // Set 'active' class to the selected category
-          var selectedCategory = document.querySelector('.category-list li a[href="#deluxe"][onclick="filterCategory(\'' + category + '\')"]');
-          selectedCategory.parentNode.classList.add('active');
-  
-          // Filter the portfolio items based on the selected category
-          var portfolioContainer = document.querySelector('.portfolio-container');
-          var portfolioItems = document.querySelectorAll('.portfolio-item');
-          portfolioItems.forEach(function (item) {
-              if (category === '' || item.classList.contains('filter-' + category.toLowerCase())) {
-                  portfolioContainer.prepend(item); // Move the item to the top
-                  item.style.display = 'block';
-                  
-              } else {
-                  item.style.display = 'none';
-              }
-          });
-      }
-  </script> -->
-    
 
       </div>
     </div>

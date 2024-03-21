@@ -89,8 +89,6 @@ border-left: 4px solid #111d5e;
     <div class="container-fluid d-flex align-items-center justify-content-between">
 
       <a href="/" class="logo d-flex align-items-center  me-auto me-lg-0">
-        <!-- Uncomment the line below if you also wish to use an image logo -->
-        <!-- <img src="assets/img/logo.png" alt=""> -->
         <i class="bi bi-camera"></i>
         <h1>Selecao</h1>
       </a>
@@ -101,9 +99,11 @@ border-left: 4px solid #111d5e;
           <li><a href="{% url 'mainapp:home' %}#about">About</a></li>
           <li><a href="" >Normal Templates</a></li>
           <li><a href="{% url 'mainapp:home' %}#premium">Premium Templates</a></li>
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 
         </ul>
-      </nav><!-- .navbar -->
+      </nav>
 
       <div class="header-social-links">
         <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
@@ -115,7 +115,8 @@ border-left: 4px solid #111d5e;
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 
     </div>
-  </header><!-- End Header -->
+  </header>
+  <!-- End Header -->
 
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="hero d-flex flex-column justify-content-center align-items-center" data-aos="fade" data-aos-delay="1500" style="background-color:#333649;">
@@ -132,60 +133,150 @@ border-left: 4px solid #111d5e;
 
 
   <main id="main" data-aos="fade" data-aos-delay="1500">
-    <form class="d-flex" role="search" method="get" action="{% url 'mainapp:morenormal' %}">
+    <!-- <form class="d-flex" role="search" method="get" action="{% url 'mainapp:morenormal' %}">
         <div class="container container1">
    <div class="search-box">
       <input type="text" name="q" class="search-input" placeholder="Search.." ><button class="search-button" type="submit"><i class="fas fa-search"></i></button>
    </div>
 </div>
-</form><br><br><br>
+</form><br><br><br> -->
 
     <!-- ======= Gallery Section ======= -->
 
-    <section id="gallery" class="gallery" style="margin-top:100px;">
+    <!-- <section id="gallery" class="gallery" style="margin-top:100px;">
       <div class="container-fluid">
         <div class="row gy-4 justify-content-center">
-    {% if query %}
        {% for s in search%}
            <div class="col-xl-3 col-lg-4 col-md-6">
-
             <div class="gallery-item h-100">
               <img src="{{s.temp_img.url}}" class="img-fluid" alt="">
               <div class="gallery-links d-flex align-items-center justify-content-center">
                 <a href="{% url 'mainapp:temp_view' s.id %}" class="btn btn-primary" style="font-size:16px;"><i class='fas fa-eye' style="margin-right:7px;"></i>Preview</a>
-<!--                <a href="#" class="details-link"><i class="bi bi-link-45deg"></i></a>-->
               </div>
               <span style="position: absolute; top: 140px; right: 15px; z-index: 2; color: white; display: inline-block; height: 65px; line-height: 65px; width: 65px; text-align: center; border-radius: 50px; background: #002347; font-family: 'Rubik', sans-serif; font-weight: 300; font-size: 15px; transition: all 0.3s ease 0s; background: #ef6603;" onmouseover="this.style.background='#002347'; this.style.color='white'" onmouseout="this.style.background='#ef6603'; this.style.color='white'">Rs. {{s.price}}</span>
             </div>
-
-          </div><!-- End Gallery Item -->
-
+          </div>
        {% endfor %}
         </div>
-          {% else %}
-
-        <div class="row gy-4 justify-content-center">
-          {% for n in normal %}
-          <div class="col-xl-3 col-lg-4 col-md-6">
-
-            <div class="gallery-item h-100">
-              <img src="{{n.temp_img.url}}" class="img-fluid" alt="">
-              <div class="gallery-links d-flex align-items-center justify-content-center">
-                <a href="{% url 'mainapp:temp_view' n.id %}" class="btn btn-primary" style="font-size:16px;"><i class='fas fa-eye' style="margin-right:7px;"></i>Preview</a>
-<!--                <a href="#" class="details-link"><i class="bi bi-link-45deg"></i></a>-->
-              </div>
-              <span style="position: absolute; top: 140px; right: 15px; z-index: 2; color: white; display: inline-block; height: 65px; line-height: 65px; width: 65px; text-align: center; border-radius: 50px; background: #002347; font-family: 'Rubik', sans-serif; font-weight: 300; font-size: 15px; transition: all 0.3s ease 0s; background: #ef6603;" onmouseover="this.style.background='#002347'; this.style.color='white'" onmouseout="this.style.background='#ef6603'; this.style.color='white'">Rs. {{n.price}}</span>
-            </div>
-          </div><!-- End Gallery Item -->
-        {% endfor %}
-        </div>
-
-
-    {% endif %}
 </div>
-
       </div>
-    </section><!-- End Gallery Section -->
+    </section> -->
+    <!-- End Gallery Section -->
+
+<section id="portfolio" class="portfolio">
+    <div class="container">
+        <div class="section-title" data-aos="zoom-out" id="normal">
+          <style>
+            .category-list {
+              list-style: none;
+              padding: 0;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              flex-wrap: wrap; /* Allow items to wrap onto multiple lines */
+            }
+            .category-list li {
+              margin-bottom: 10px;
+              margin-right: 10px;
+              flex: 1; /* Distribute available space equally among items */
+              max-width: calc(50% - 20px); /* Set maximum width for each item */
+            }
+            .category-list li b {
+              font-size: 20px;
+              text-decoration: none;
+              color: #000;
+            }
+            .category-list li.active {
+              font-weight: bold;
+            }
+          
+            /* Media query for mobile devices */
+            @media only screen and (max-width: 767px) {
+              .category-list li {
+                max-width: calc(100% - 20px); /* Set maximum width to 100% on smaller screens */
+              }
+            }
+          </style>
+          
+          <div class="row">
+            <div class="col-md-12">
+              <label for="categoryDropdown" style="margin-bottom: 15px; font-size: 25px;">Category</label>
+              <ul id="categoryDropdown" class="category-list">
+                <div class="col-md-1">
+                <li class="button all active">
+                  <button style="border: 0px; background-color: white;">All</button>
+                </li>
+              </div>
+                {% for category in template_categories %}
+                <div class="col-md-1">
+                <li class="button {{ category|lower }}">
+                  <button style="border: 0px; background-color: white;">{{ category }}</button>
+                </li>
+              </div>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+          
+            
+            <!-- <div class="col-md-2"></div> -->
+            <section id="gallery" class="gallery" style="margin-top:100px;">
+            <div class="col-md-12">
+              <div class="row portfolio-" data-aos="fade-up">
+                {% for n in normal %}
+                <div class="col-lg-4 col-md-4 portfolio-item {{ n.category|lower }} card1  portfolio-container" style="margin-bottom: 25px;">
+                  <div class="portfolio-img">
+                    <a href="{% url 'mainapp:temp_view' n.id %}">
+                    <img src="{{ n.temp_img.url }}" class="img-fluid" alt=""></a></div>
+                  <div class="info" style="background: rgba(0, 0, 0, 0.2);">
+                    <a href="{% url 'mainapp:temp_view' n.id %}" class="preview-button btn btn-primary"><i class='fas fa-eye' style="margin-right:7px;"></i>Preview</a>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+            </section>
+      
+            <!-- <section id="gallery" class="gallery" style="margin-top:100px;">
+              <div class="container-fluid">
+                <div class="row gy-4 justify-content-center">
+               {% for n in normal %}
+                   <div class="col-xl-3 col-lg-4 col-md-6">
+                    <div class="gallery-item h-100 {{ n.category|lower }}">
+                      <img src="{{n.temp_img.url}}" class="img-fluid" alt="">
+                      <div class="gallery-links d-flex align-items-center justify-content-center">
+                        <a href="{% url 'mainapp:temp_view' n.id %}" class="btn btn-primary" style="font-size:16px;"><i class='fas fa-eye' style="margin-right:7px;"></i>Preview</a>
+                      </div>
+                      <span style="position: absolute; top: 140px; right: 15px; z-index: 2; color: white; display: inline-block; height: 65px; line-height: 65px; width: 65px; text-align: center; border-radius: 50px; background: #002347; font-family: 'Rubik', sans-serif; font-weight: 300; font-size: 15px; transition: all 0.3s ease 0s; background: #ef6603;" onmouseover="this.style.background='#002347'; this.style.color='white'" onmouseout="this.style.background='#ef6603'; this.style.color='white'">Rs. {{s.price}}</span>
+                    </div>
+                  </div>
+               {% endfor %}
+                </div>
+              </div>
+              </div>
+            </section> -->
+
+
+            <script>
+              $(document).ready(function() {
+                $('.button').click(function() {
+                  var category = $(this).attr('class').split(' ')[1];
+                  $('.portfolio-item').hide();
+                  if (category === 'all') {
+                    $('.portfolio-item').show(); // Show all portfolio items
+                  } else {
+                    $('.portfolio-item.' + category).show();
+                  }
+                  $('.button').removeClass('active');
+                  $(this).addClass('active');
+                });
+              });
+            </script>
+            
+          </div>
+        </div>
+      </div>
+    </section>
 
   </main><!-- End #main -->
 
